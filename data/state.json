@@ -1,0 +1,418 @@
+{
+  "version": 7,
+  "schemaVersion": "3.0",
+  "activeTracks": [
+    "TOURNAMENT"
+  ],
+  "tournamentState": "RESULT",
+  "soulmaskState": "IDLE",
+  "config": {
+    "votingMode": "MULTI",
+    "votingTimerSec": 120,
+    "votingMinPool": 4,
+    "votingMaxPool": 8,
+    "votingMaxVotesPerPlayer": null,
+    "autoCheckpoint": true,
+    "pollingIntervalMs": {
+      "tv": 1000,
+      "browser": 2000,
+      "admin": 1000
+    },
+    "heartbeatTimeoutSec": 30,
+    "soulmaskAllowPlayerCustomRoles": true
+  },
+  "players": [
+    {
+      "id": "p_1777488611170_840432",
+      "name": "TestSpieler",
+      "color": "#39ff6e",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": true,
+      "lastSeen": 1777488611170,
+      "sessionToken": "b56a901926a11903dbfbf18be7e8b85cdf4aad645632ef7c",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777489094114_59f0f9",
+      "name": "Xaver",
+      "color": "#00e5ff",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": true,
+      "lastSeen": 1777489203936,
+      "sessionToken": "d0b490396910010f87c7b78fb1e4d420bef875e506032a23",
+      "warnings": 1,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    }
+  ],
+  "games": [
+    {
+      "id": "g_1",
+      "title": "Counter-Strike 2",
+      "tag": "FPS",
+      "color": "#ff6b35",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_2",
+      "title": "Rocket League",
+      "tag": "Sport",
+      "color": "#00aaff",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_3",
+      "title": "Valorant",
+      "tag": "Tactical",
+      "color": "#ff4655",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_4",
+      "title": "Age of Empires IV",
+      "tag": "RTS",
+      "color": "#ffd700",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_5",
+      "title": "Minecraft",
+      "tag": "Sandbox",
+      "color": "#78c832",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": false
+    },
+    {
+      "id": "g_6",
+      "title": "Warzone",
+      "tag": "BattleRoyale",
+      "color": "#a855f7",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": false
+    },
+    {
+      "id": "g_7",
+      "title": "Halo Infinite",
+      "tag": "Arena",
+      "color": "#3ad6c8",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": false
+    },
+    {
+      "id": "g_8",
+      "title": "Among Us",
+      "tag": "Party",
+      "color": "#e84a5f",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": false
+    }
+  ],
+  "votingSession": {
+    "mode": "MULTI",
+    "startedAt": 1777488673158,
+    "endsAt": 1777488733158,
+    "pool": [
+      "g_1",
+      "g_2",
+      "g_3",
+      "g_4"
+    ],
+    "votes": {
+      "p_1777489094114_59f0f9": [
+        "g_4"
+      ]
+    },
+    "eliminated": [],
+    "tieBreakState": "none"
+  },
+  "spinSession": {
+    "candidates": [
+      "g_4"
+    ],
+    "winnerId": "g_4",
+    "wheelVariant": "pie",
+    "startedAt": 1777489205029,
+    "durationMs": 0
+  },
+  "matches": [],
+  "modifiers": [
+    {
+      "id": "rr-hardcore",
+      "category": "risk-reward",
+      "label": "Hardcore × 1.5",
+      "rules": {
+        "multiplier": 1.5,
+        "note": "Erhöhtes Risiko, mehr Punkte"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "rr-casual",
+      "category": "risk-reward",
+      "label": "Casual × 0.75",
+      "rules": {
+        "multiplier": 0.75,
+        "note": "Lockerer Modus, weniger Punkte"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "bal-underdog",
+      "category": "balance",
+      "label": "Underdog Bonus +30",
+      "rules": {
+        "handicap": 30,
+        "note": "Punkte-Bonus für klar unterlegene Seite"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "bal-handicap-strong",
+      "category": "balance",
+      "label": "Handicap −20 für Top-Spieler",
+      "rules": {
+        "handicap": -20,
+        "note": "Punkte-Abzug für stärkste Spieler"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-double",
+      "category": "chaos",
+      "label": "Double Points × 2",
+      "rules": {
+        "multiplier": 2,
+        "chaosFlag": true,
+        "note": "Alle Punkte verdoppelt"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-no-voice",
+      "category": "chaos",
+      "label": "No Voice Chat",
+      "rules": {
+        "chaosFlag": true,
+        "note": "Show-Regel: keine Sprachkommunikation"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-random-rule",
+      "category": "chaos",
+      "label": "Random Rule Variation",
+      "rules": {
+        "chaosFlag": true,
+        "note": "Show-Regel: zufällige Regel-Variation"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    }
+  ],
+  "soulmaskData": {
+    "sessionId": "",
+    "defaultRoles": [
+      "Builder",
+      "Fighter",
+      "Farmer",
+      "Explorer",
+      "Support",
+      "Scout"
+    ],
+    "customRoles": [],
+    "activeRoles": {},
+    "roleHistory": [],
+    "tasks": [],
+    "globalGoals": [
+      {
+        "id": "goal_default_1",
+        "label": "Base Camp aufbauen",
+        "color": "#ffd700",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_2",
+        "label": "Ressourcen sammeln",
+        "color": "#39ff6e",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_3",
+        "label": "Gegner eliminieren",
+        "color": "#ff2d6b",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_4",
+        "label": "Territorium erkunden",
+        "color": "#00e5ff",
+        "progress": 0
+      }
+    ],
+    "morale": 0
+  },
+  "leaderboard": {
+    "top": []
+  },
+  "eventLog": [
+    {
+      "id": "e_1777488600745",
+      "timestamp": 1777488600745,
+      "type": "system",
+      "payload": {
+        "event": "BOOT",
+        "schemaVersion": "3.0"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777488611170_39",
+      "timestamp": 1777488611170,
+      "type": "player-join",
+      "payload": {
+        "name": "TestSpieler"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777488673158_623",
+      "timestamp": 1777488673158,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-start",
+        "mode": "MULTI",
+        "pool": [
+          "g_1",
+          "g_2",
+          "g_3",
+          "g_4"
+        ],
+        "timerSec": 60
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777489094114_749",
+      "timestamp": 1777489094114,
+      "type": "player-join",
+      "payload": {
+        "name": "Xaver"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777489100175_524",
+      "timestamp": 1777489100175,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777489094114_59f0f9",
+        "gameIds": [
+          "g_4"
+        ],
+        "voteMode": "MULTI"
+      },
+      "actorId": "p_1777489094114_59f0f9"
+    },
+    {
+      "id": "e_1777489163308_929",
+      "timestamp": 1777489163308,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-warn",
+        "playerId": "p_1777489094114_59f0f9"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777489205029_377",
+      "timestamp": 1777489205029,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    }
+  ],
+  "checkpoints": [],
+  "uiPreferences": {
+    "tvTheme": "dark-arcade",
+    "wheelVariant": "pie"
+  },
+  "simulationActive": false
+}

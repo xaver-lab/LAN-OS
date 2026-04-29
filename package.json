@@ -1,0 +1,19 @@
+{
+  "name": "lan-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LAN-Party Event Plattform — Server + Browser-UIs (TV / Player / Admin)",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:shared": "npm run build --workspace packages/shared",
+    "build:server": "npm run build --workspace packages/server",
+    "build:client": "npm run build --workspace packages/client",
+    "dev": "npm run dev --workspace packages/server",
+    "dev:client": "npm run dev --workspace packages/client",
+    "start": "npm run start --workspace packages/server",
+    "test": "npm run test --workspace packages/shared"
+  }
+}

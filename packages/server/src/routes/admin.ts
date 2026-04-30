@@ -130,7 +130,7 @@ adminRouter.post("/config", async (req, res) => {
 
 /* ───────────── Spieler ───────────── */
 
-adminRouter.post("/players/manual", async (req, res) => {
+adminRouter.post("/players", async (req, res) => {
   try {
     const c = getContainer();
     const { name, color, role } = req.body ?? {};
@@ -384,7 +384,7 @@ adminRouter.post("/spin/finish", async (req, res) => {
 
 /* ───────────── Matches ───────────── */
 
-adminRouter.post("/match/setup", async (req, res) => {
+adminRouter.post("/matches/setup", async (req, res) => {
   try {
     const c = getContainer();
     const args = req.body ?? {};
@@ -400,7 +400,7 @@ adminRouter.post("/match/setup", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/start", async (req, res) => {
+adminRouter.post("/matches/:matchId/start", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -417,7 +417,7 @@ adminRouter.post("/match/:matchId/start", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/scores", async (req, res) => {
+adminRouter.post("/matches/:matchId/scores", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -436,7 +436,7 @@ adminRouter.post("/match/:matchId/scores", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/mvp", async (req, res) => {
+adminRouter.post("/matches/:matchId/mvp", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -453,7 +453,7 @@ adminRouter.post("/match/:matchId/mvp", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/modifiers", async (req, res) => {
+adminRouter.post("/matches/:matchId/modifiers", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -473,7 +473,7 @@ adminRouter.post("/match/:matchId/modifiers", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/confirm", async (req, res) => {
+adminRouter.post("/matches/:matchId/confirm", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -490,7 +490,7 @@ adminRouter.post("/match/:matchId/confirm", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/:matchId/override", async (req, res) => {
+adminRouter.post("/matches/:matchId/override", async (req, res) => {
   try {
     const c = getContainer();
     const matchId = req.params["matchId"]!;
@@ -509,7 +509,7 @@ adminRouter.post("/match/:matchId/override", async (req, res) => {
   }
 });
 
-adminRouter.post("/match/skip", async (req, res) => {
+adminRouter.post("/matches/:matchId/skip", async (req, res) => {
   try {
     const c = getContainer();
     await c.mutate((s) => skipRound(s), {
@@ -918,8 +918,8 @@ adminRouter.post("/system/checkpoint", async (req, res) => {
 
 adminRouter.get("/system/checkpoints", async (_req, res) => {
   try {
-    const files = await listCheckpointFiles();
-    res.json({ files });
+    const c = getContainer();
+    res.json({ checkpoints: c.get().checkpoints });
   } catch (err) {
     handleErr(res, err);
   }

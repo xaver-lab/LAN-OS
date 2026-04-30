@@ -29,7 +29,7 @@ export function Voting({ state, reload }: Props) {
   const isActive = !!vs;
 
   async function startVoting() {
-    if (pool.length < 2) { alert("Mindestens 2 Spiele im Pool nötig."); return; }
+    if (pool.length < state.config.votingMinPool) { alert(`Mindestens ${state.config.votingMinPool} Spiele im Pool nötig.`); return; }
     setBusy(true);
     try { await post("/admin/voting/start", { mode, pool, timerSec: Number(timerSec) }); reload(); }
     catch (e) { alert(e instanceof Error ? e.message : String(e)); }
@@ -50,11 +50,15 @@ export function Voting({ state, reload }: Props) {
     finally { setBusy(false); setCancelConfirm(false); }
   }
 
-  async function resolveTie(action: "re-vote" | "manual" | "random", overrideGameId?: string) {
+  async function resolveTie(overrideGameId: string) {
     setBusy(true);
-    try { await post("/admin/voting/tie-break", { action, overrideGameId }); reload(); }
+    try { await post("/admin/voting/tie-break", { action: "override", overrideGameId }); reload(); }
     catch (e) { alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
+  }
+
+  function randomPoolGame() {
+    return poolGames[Math.floor(Math.random() * poolGames.length)]?.id ?? "";
   }
 
   function togglePoolGame(gameId: string) {
@@ -64,8 +68,26 @@ export function Voting({ state, reload }: Props) {
   const poolGames    = state.games.filter((g) => g.inActivePool);
   const poolOptions  = poolGames.map((g) => ({ value: g.id, label: g.title }));
 
+  async function toggleGamePool(gameId: string, active: boolean) {
+    setBusy(true);
+    try { await post(`/admin/games/${gameId}/pool`, { inActivePool: active }); reload(); }
+    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    finally { setBusy(false); }
+  }
+
   return (
     <div style={{ display: "grid", gap: 16, maxWidth: 900 }}>
+      <Card title="Spielerpool verwalten" accent="var(--muted)">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 6 }}>
+          {state.games.length === 0 && <div style={{ color: "var(--muted)", fontSize: 13 }}>Keine Spiele in der Bibliothek.</div>}
+          {state.games.map((g) => (
+            <button key={g.id} onClick={() => toggleGamePool(g.id, !g.inActivePool)} disabled={busy}
+              style={{ background: g.inActivePool ? "var(--neon-dim)" : "var(--bg3)", border: `1px solid ${g.inActivePool ? "var(--neon)" : "var(--border)"}`, borderRadius: 6, padding: "8px 12px", color: g.inActivePool ? "var(--neon)" : "var(--muted)", cursor: "pointer", textAlign: "left", fontSize: 13, fontFamily: "'Rajdhani', sans-serif", fontWeight: g.inActivePool ? 700 : 400, transition: "all 0.15s", opacity: busy ? 0.5 : 1 }}>
+              {g.inActivePool ? "✓ " : ""}{g.title}
+            </button>
+          ))}
+        </div>
+      </Card>
       {isActive && (
         <Card title="Aktive Voting-Session" accent="var(--cyan)">
           <div style={{ display: "grid", gap: 8 }}>
@@ -87,17 +109,21 @@ export function Voting({ state, reload }: Props) {
         </Card>
       )}
 
-      {state.tournamentState === "ELIMINATION_APPLIED" && (
-        <Card title="Tie-Break" accent="var(--magenta)">
+      {(state.tournamentState === "ELIMINATION_APPLIED" || state.tournamentState === "ERROR_GUARD") && (
+        <Card title={state.tournamentState === "ERROR_GUARD" ? "Fehler: Keine Stimmen" : "Tie-Break"} accent="var(--magenta)">
           <div style={{ display: "grid", gap: 10 }}>
-            <div style={{ color: "var(--muted)", fontSize: 13 }}>Gleichstand — Wähle Auflösungsstrategie:</div>
+            <div style={{ color: "var(--muted)", fontSize: 13 }}>
+              {state.tournamentState === "ERROR_GUARD"
+                ? "Keine Stimmen abgegeben — Spiel manuell wählen oder Abstimmung abbrechen:"
+                : "Gleichstand — Spiel für Weiterkommen wählen:"}
+            </div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <NeonButton onClick={() => resolveTie("random")} disabled={busy} variant="secondary">Zufällig</NeonButton>
-              <NeonButton onClick={() => resolveTie("re-vote")} disabled={busy} variant="secondary">Re-Vote</NeonButton>
+              <NeonButton onClick={() => { const g = randomPoolGame(); if (g) resolveTie(g); }} disabled={busy || poolGames.length === 0} variant="secondary">Zufällig</NeonButton>
+              <NeonButton variant="danger" onClick={cancelVoting} disabled={busy}>Abstimmung abbrechen</NeonButton>
             </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <NeonSelect value={tieOverride} onChange={setTieOverride} options={[{ value: "", label: "Manuell wählen…" }, ...poolOptions]} />
-              <NeonButton onClick={() => tieOverride && resolveTie("manual", tieOverride)} disabled={busy || !tieOverride}>Überschreiben</NeonButton>
+              <NeonSelect value={tieOverride} onChange={setTieOverride} options={[{ value: "", label: "Spiel wählen…" }, ...poolOptions]} />
+              <NeonButton onClick={() => tieOverride && resolveTie(tieOverride)} disabled={busy || !tieOverride}>Überschreiben</NeonButton>
             </div>
           </div>
         </Card>
@@ -133,7 +159,7 @@ export function Voting({ state, reload }: Props) {
                 })}
               </div>
             </div>
-            <NeonButton onClick={startVoting} disabled={busy || pool.length < 2} fullWidth>Abstimmung starten</NeonButton>
+            <NeonButton onClick={startVoting} disabled={busy || pool.length < state.config.votingMinPool} fullWidth>Abstimmung starten</NeonButton>
           </div>
         </Card>
       )}

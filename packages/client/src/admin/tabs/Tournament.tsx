@@ -29,7 +29,6 @@ export function Tournament({ state, reload }: Props) {
   );
 
   const gameOptions = state.games
-    .filter((g) => g.inActivePool)
     .map((g) => ({ value: g.id, label: g.title }));
 
   async function setupMatch() {

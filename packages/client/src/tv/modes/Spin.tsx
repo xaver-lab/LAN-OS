@@ -4,6 +4,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import type { SystemState } from "@lan-os/shared";
+import { post } from "../../api/client.js";
 
 interface Props {
   state: SystemState;
@@ -12,6 +13,21 @@ interface Props {
 export function SpinMode({ state }: Props) {
   const variant = state.uiPreferences.wheelVariant ?? "pie";
   const spin = state.spinSession;
+  const calledRef = useRef<number | null>(null);
+
+  // After spin duration elapses, report winner to server (deterministic pick).
+  useEffect(() => {
+    if (!spin || spin.winnerId || calledRef.current === spin.startedAt) return;
+    calledRef.current = spin.startedAt;
+    const remaining = spin.durationMs - (Date.now() - spin.startedAt);
+    const delay = Math.max(remaining + 500, 500); // 500ms buffer after animation
+    const winnerId = spin.candidates[spin.startedAt % spin.candidates.length]!;
+    const timer = setTimeout(() => {
+      post("/admin/spin/finish", { winnerId }).catch(() => {});
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [spin?.startedAt]);
+
   if (!spin) return null;
 
   const candidates = spin.candidates;

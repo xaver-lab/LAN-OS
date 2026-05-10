@@ -808,6 +808,7 @@ adminRouter.post("/games", async (req, res) => {
       chaosPotential: 0,
       aiAnalyzed: false,
       inActivePool: false,
+      scoringRules: [],
     };
     await c.mutate(
       (s) => ({ ...s, games: [...s.games, analyzeGame(game)] }),

@@ -6,6 +6,7 @@ import cors from "cors";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { boot } from "./boot.js";
+import { getContainer } from "./state.js";
 import { stateRouter } from "./routes/state.js";
 import { authRouter } from "./routes/auth.js";
 import { playerRouter } from "./routes/player.js";
@@ -39,7 +40,6 @@ async function main() {
 
   // ── Health-Check Endpoint ──────────────────────────────────────────────────
   app.get("/health", (_req, res) => {
-    const { getContainer } = await import("./state.js");
     const c = getContainer();
     const s = c.get();
     res.json({

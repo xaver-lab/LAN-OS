@@ -100,6 +100,18 @@ export function Overview({ state, reload }: Props) {
         </div>
       </Card>
 
+      {/* System Health */}
+      <Card title="System Health" accent="var(--cyan)">
+        <div style={{ display: "grid", gap: 10 }}>
+          <StatRow label="Server Status" value="🟢 UP" />
+          <StatRow label="Matches Active" value={String(state.matches.filter((m) => m.status === "active").length)} />
+          <StatRow label="Checkpoints" value={String(state.schemaVersion)} />
+          <div style={{ fontSize: 11, color: "var(--muted)", padding: "8px 0 0 0", borderTop: "1px solid var(--border)", paddingTop: 8 }}>
+            Server health monitored via /health endpoint. Use PM2 for auto-restart.
+          </div>
+        </div>
+      </Card>
+
       {/* Mini Leaderboard */}
       <Card title="Leaderboard Top 5">
         {leaderTop.length === 0 ? (

@@ -25,6 +25,7 @@ export function createEmptyState(now: number = Date.now()): SystemState {
     chaosPotential: 0,
     aiAnalyzed: false,
     inActivePool: false,
+    scoringRules: [],
   }));
 
   const goals: GlobalGoal[] = DEFAULT_GLOBAL_GOALS.map((g, i) => ({
@@ -70,5 +71,6 @@ export function createEmptyState(now: number = Date.now()): SystemState {
     checkpoints: [],
     uiPreferences: { ...DEFAULT_UI_PREFERENCES },
     simulationActive: false,
+    tournament: null,
   };
 }

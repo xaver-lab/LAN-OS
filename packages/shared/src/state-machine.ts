@@ -474,6 +474,8 @@ export function setupMatch(
     mvpPlayerId: null,
     activeModifiers: args.modifiers?.slice() ?? [],
     pointsAwarded: null,
+    roundResults: [],
+    scoringRules: findGame(state, args.gameId).scoringRules.slice(),
   };
   next.matches.push(match);
   next.tournamentState = "MATCH_SETUP";

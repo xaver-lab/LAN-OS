@@ -116,6 +116,8 @@ export interface Game {
   chaosPotential: number;
   aiAnalyzed: boolean;
   inActivePool: boolean;
+  /** Standard Scoring-Regeln für dieses Spiel (neu in v3.1, optional) */
+  scoringRules: ScoringRule[];
 }
 
 export interface VotingSession {
@@ -143,6 +145,12 @@ export interface MatchScores {
   perPlayer: Record<string, number> | null;
 }
 
+export interface RoundResult {
+  roundNum: number;
+  scores: MatchScores;
+  timestamp: number;
+}
+
 export interface PointsBreakdownEntry {
   rule: string;
   pts: number;
@@ -151,6 +159,12 @@ export interface PointsBreakdownEntry {
 export interface PointsAwarded {
   perPlayer: Record<string, number>;
   breakdown: PointsBreakdownEntry[];
+}
+
+export interface ScoringRule {
+  action: string;
+  points: number;
+  description?: string;
 }
 
 export interface Match {
@@ -168,6 +182,10 @@ export interface Match {
   mvpPlayerId: string | null;
   activeModifiers: string[];
   pointsAwarded: PointsAwarded | null;
+  /** Hierarchische Runden-Struktur (neu in v3.1) */
+  roundResults: RoundResult[];
+  /** AI-generierte oder Admin-definierte Scoring-Regeln (neu in v3.1) */
+  scoringRules: ScoringRule[];
 }
 
 export interface ModifierRules {
@@ -283,6 +301,29 @@ export interface Leaderboard {
   top: string[];
 }
 
+export interface BracketMatch {
+  id: string;
+  playerA: string;
+  playerB: string;
+  gameId: string;
+  status: "pending" | "active" | "done";
+  matchId: string | null;
+}
+
+export interface BracketRound {
+  roundNum: number;
+  matches: BracketMatch[];
+}
+
+export interface TournamentBracket {
+  id: string;
+  createdAt: number;
+  createdBy: string | null;
+  rounds: BracketRound[];
+  status: "draft" | "active" | "completed";
+  rationale?: string;
+}
+
 export interface SystemState {
   version: number;
   schemaVersion: typeof SCHEMA_VERSION;
@@ -303,4 +344,6 @@ export interface SystemState {
   uiPreferences: UiPreferences;
   /** Nicht in §4.2 spezifiziert — vom Coding Agent für §16.7 ergänzt (Plan-Approval). */
   simulationActive: boolean;
+  /** Tournament Bracket für Bracket-Planner (neu in v3.1, optional) */
+  tournament: TournamentBracket | null;
 }

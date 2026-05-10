@@ -1,0 +1,1179 @@
+{
+  "version": 62,
+  "schemaVersion": "3.0",
+  "activeTracks": [
+    "TOURNAMENT",
+    "SOULMASK"
+  ],
+  "tournamentState": "LOBBY",
+  "soulmaskState": "ACTIVE",
+  "config": {
+    "votingMode": "MULTI",
+    "votingTimerSec": 120,
+    "votingMinPool": 4,
+    "votingMaxPool": 8,
+    "votingMaxVotesPerPlayer": null,
+    "autoCheckpoint": true,
+    "pollingIntervalMs": {
+      "tv": 1000,
+      "browser": 2000,
+      "admin": 1000
+    },
+    "heartbeatTimeoutSec": 30,
+    "soulmaskAllowPlayerCustomRoles": true
+  },
+  "players": [
+    {
+      "id": "p_1777569713510_f5fd72",
+      "name": "TestSpieler1",
+      "color": "#39ff6e",
+      "points": 100,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": false,
+      "lastSeen": 1777571207456,
+      "sessionToken": "a010f04cb95d656488e7efc90084555c0f5395b3192d93ef",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 1,
+        "best": 1,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777569726603_c910ec",
+      "name": "TestSpieler2",
+      "color": "#00e5ff",
+      "points": 10,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": false,
+      "lastSeen": 0,
+      "sessionToken": "",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777569727419_57fa98",
+      "name": "TestSpieler3",
+      "color": "#ff2d6b",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": false,
+      "lastSeen": 0,
+      "sessionToken": "",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777569728226_7bce62",
+      "name": "TestSpieler4",
+      "color": "#ffb830",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": false,
+      "lastSeen": 0,
+      "sessionToken": "",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777571266200_82d2c5",
+      "name": "TestPlayer99",
+      "color": "#a855f7",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": true,
+      "lastSeen": 1777571754051,
+      "sessionToken": "fc8122712e4c630885c96638df638db9a9da955e23b08971",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1777572627185_95b8cd",
+      "name": "Xaver",
+      "color": "#ff6b35",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": true,
+      "lastSeen": 1777572698496,
+      "sessionToken": "5114641a59dc3ac6230ceef89ec661dc71bc021e9e695d5a",
+      "warnings": 0,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    }
+  ],
+  "games": [
+    {
+      "id": "g_1",
+      "title": "Counter-Strike 2",
+      "tag": "FPS",
+      "color": "#ff6b35",
+      "avgDurationMin": 25,
+      "recommendedPlayers": {
+        "min": 2,
+        "max": 10
+      },
+      "suitableModes": [
+        "1v1",
+        "2v2",
+        "team"
+      ],
+      "complexity": "hardcore",
+      "tournamentSuitability": 90,
+      "chaosPotential": 30,
+      "aiAnalyzed": true,
+      "inActivePool": true
+    },
+    {
+      "id": "g_2",
+      "title": "Rocket League",
+      "tag": "Sport",
+      "color": "#00aaff",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_3",
+      "title": "Valorant",
+      "tag": "Tactical",
+      "color": "#ff4655",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_4",
+      "title": "Age of Empires IV",
+      "tag": "RTS",
+      "color": "#ffd700",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_5",
+      "title": "Minecraft",
+      "tag": "Sandbox",
+      "color": "#78c832",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_6",
+      "title": "Warzone",
+      "tag": "BattleRoyale",
+      "color": "#a855f7",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_7",
+      "title": "Halo Infinite",
+      "tag": "Arena",
+      "color": "#3ad6c8",
+      "avgDurationMin": null,
+      "recommendedPlayers": null,
+      "suitableModes": [],
+      "complexity": "medium",
+      "tournamentSuitability": 0,
+      "chaosPotential": 0,
+      "aiAnalyzed": false,
+      "inActivePool": true
+    },
+    {
+      "id": "g_8",
+      "title": "Among Us",
+      "tag": "Party",
+      "color": "#e84a5f",
+      "avgDurationMin": 10,
+      "recommendedPlayers": {
+        "min": 3,
+        "max": 8
+      },
+      "suitableModes": [
+        "ffa",
+        "team"
+      ],
+      "complexity": "casual",
+      "tournamentSuitability": 65,
+      "chaosPotential": 95,
+      "aiAnalyzed": true,
+      "inActivePool": true
+    }
+  ],
+  "votingSession": {
+    "mode": "MULTI",
+    "startedAt": 1777571790975,
+    "endsAt": 1777571850975,
+    "pool": [
+      "g_1",
+      "g_2",
+      "g_3",
+      "g_4"
+    ],
+    "votes": {},
+    "eliminated": [],
+    "tieBreakState": "none"
+  },
+  "spinSession": {
+    "candidates": [
+      "g_3"
+    ],
+    "winnerId": "g_3",
+    "wheelVariant": "pie",
+    "startedAt": 1777571803551,
+    "durationMs": 0
+  },
+  "matches": [
+    {
+      "id": "m_1777570353715_616",
+      "roundNumber": 1,
+      "type": "1v1",
+      "gameId": "g_1",
+      "status": "done",
+      "teamA": [
+        "p_1777569713510_f5fd72"
+      ],
+      "teamB": [
+        "p_1777569726603_c910ec"
+      ],
+      "scores": {
+        "A": 16,
+        "B": 12,
+        "perPlayer": null
+      },
+      "confirmed": true,
+      "confirmedAt": 1777570393765,
+      "mvpPlayerId": null,
+      "activeModifiers": [],
+      "pointsAwarded": {
+        "perPlayer": {
+          "p_1777569713510_f5fd72": 100,
+          "p_1777569726603_c910ec": 10
+        },
+        "breakdown": [
+          {
+            "rule": "p_1777569713510_f5fd72: Sieg",
+            "pts": 100
+          },
+          {
+            "rule": "p_1777569726603_c910ec: Niederlage",
+            "pts": 10
+          }
+        ]
+      }
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "rr-hardcore",
+      "category": "risk-reward",
+      "label": "Hardcore × 1.5",
+      "rules": {
+        "multiplier": 1.5,
+        "note": "Erhöhtes Risiko, mehr Punkte"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "rr-casual",
+      "category": "risk-reward",
+      "label": "Casual × 0.75",
+      "rules": {
+        "multiplier": 0.75,
+        "note": "Lockerer Modus, weniger Punkte"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "bal-underdog",
+      "category": "balance",
+      "label": "Underdog Bonus +30",
+      "rules": {
+        "handicap": 30,
+        "note": "Punkte-Bonus für klar unterlegene Seite"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "bal-handicap-strong",
+      "category": "balance",
+      "label": "Handicap −20 für Top-Spieler",
+      "rules": {
+        "handicap": -20,
+        "note": "Punkte-Abzug für stärkste Spieler"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-double",
+      "category": "chaos",
+      "label": "Double Points × 2",
+      "rules": {
+        "multiplier": 2,
+        "chaosFlag": true,
+        "note": "Alle Punkte verdoppelt"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-no-voice",
+      "category": "chaos",
+      "label": "No Voice Chat",
+      "rules": {
+        "chaosFlag": true,
+        "note": "Show-Regel: keine Sprachkommunikation"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    },
+    {
+      "id": "ch-random-rule",
+      "category": "chaos",
+      "label": "Random Rule Variation",
+      "rules": {
+        "chaosFlag": true,
+        "note": "Show-Regel: zufällige Regel-Variation"
+      },
+      "appliesTo": "match",
+      "enabled": true
+    }
+  ],
+  "soulmaskData": {
+    "sessionId": "sm_1777572670499",
+    "defaultRoles": [
+      "Builder",
+      "Fighter",
+      "Farmer",
+      "Explorer",
+      "Support",
+      "Scout"
+    ],
+    "customRoles": [],
+    "activeRoles": {},
+    "roleHistory": [],
+    "tasks": [],
+    "globalGoals": [
+      {
+        "id": "goal_default_1",
+        "label": "Base Camp aufbauen",
+        "color": "#ffd700",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_2",
+        "label": "Ressourcen sammeln",
+        "color": "#39ff6e",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_3",
+        "label": "Gegner eliminieren",
+        "color": "#ff2d6b",
+        "progress": 0
+      },
+      {
+        "id": "goal_default_4",
+        "label": "Territorium erkunden",
+        "color": "#00e5ff",
+        "progress": 0
+      }
+    ],
+    "morale": 0
+  },
+  "leaderboard": {
+    "top": []
+  },
+  "eventLog": [
+    {
+      "id": "e_1777569518247",
+      "timestamp": 1777569518247,
+      "type": "system",
+      "payload": {
+        "event": "BOOT",
+        "schemaVersion": "3.0"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569572783_523",
+      "timestamp": 1777569572783,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569621467_494",
+      "timestamp": 1777569621467,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569713509_453",
+      "timestamp": 1777569713509,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-manual-add",
+        "name": "TestSpieler1"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569726603_214",
+      "timestamp": 1777569726603,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-manual-add",
+        "name": "TestSpieler2"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569727419_82",
+      "timestamp": 1777569727419,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-manual-add",
+        "name": "TestSpieler3"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569728226_518",
+      "timestamp": 1777569728226,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-manual-add",
+        "name": "TestSpieler4"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569850516_801",
+      "timestamp": 1777569850516,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_1",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569851164_677",
+      "timestamp": 1777569851164,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_2",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569851721_164",
+      "timestamp": 1777569851721,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_3",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569852330_698",
+      "timestamp": 1777569852330,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_4",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569863014_586",
+      "timestamp": 1777569863014,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_1",
+        "inActivePool": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777569863224_686",
+      "timestamp": 1777569863224,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_2",
+        "inActivePool": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570046300_258",
+      "timestamp": 1777570046300,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_1",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570046998_966",
+      "timestamp": 1777570046998,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_2",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570060606_440",
+      "timestamp": 1777570060606,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-start",
+        "mode": "MULTI",
+        "pool": [
+          "g_1",
+          "g_2",
+          "g_3",
+          "g_4"
+        ],
+        "timerSec": 120
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570068734_938",
+      "timestamp": 1777570068734,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570127657_121",
+      "timestamp": 1777570127657,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-cancel"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570353715_110",
+      "timestamp": 1777570353715,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "match-setup",
+        "args": {
+          "type": "1v1",
+          "teamA": [
+            "p_1777569713510_f5fd72"
+          ],
+          "teamB": [
+            "p_1777569726603_c910ec"
+          ],
+          "gameId": "g_1",
+          "modifiers": []
+        }
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570363050_497",
+      "timestamp": 1777570363050,
+      "type": "match-start",
+      "payload": {
+        "matchId": "m_1777570353715_616"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570380445_498",
+      "timestamp": 1777570380445,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "match-submit-scores",
+        "matchId": "m_1777570353715_616"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777570393765_598",
+      "timestamp": 1777570393765,
+      "type": "match-done",
+      "payload": {
+        "matchId": "m_1777570353715_616"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571071870_402",
+      "timestamp": 1777571071870,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "checkpoint-create",
+        "label": "manual"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571207456_836",
+      "timestamp": 1777571207456,
+      "type": "player-join",
+      "payload": {
+        "name": "TestSpieler1"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571266199_478",
+      "timestamp": 1777571266199,
+      "type": "player-join",
+      "payload": {
+        "name": "TestPlayer99"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571374223_422",
+      "timestamp": 1777571374223,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-start",
+        "mode": "MULTI",
+        "pool": [
+          "g_1",
+          "g_2",
+          "g_3",
+          "g_4"
+        ],
+        "timerSec": 120
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571392391_564",
+      "timestamp": 1777571392391,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777571266200_82d2c5",
+        "gameIds": [
+          "g_1",
+          "g_2"
+        ],
+        "voteMode": "MULTI"
+      },
+      "actorId": "p_1777571266200_82d2c5"
+    },
+    {
+      "id": "e_1777571406625_583",
+      "timestamp": 1777571406625,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571560970_795",
+      "timestamp": 1777571560970,
+      "type": "spin",
+      "payload": {
+        "candidates": [
+          "g_1",
+          "g_2"
+        ],
+        "winnerId": "g_1",
+        "wheelVariant": "pie"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571564997_42",
+      "timestamp": 1777571564997,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_1",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571564998_581",
+      "timestamp": 1777571564998,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_2",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571565001_844",
+      "timestamp": 1777571565001,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_3",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571565003_862",
+      "timestamp": 1777571565003,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_4",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571568755_997",
+      "timestamp": 1777571568755,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-start",
+        "mode": "MULTI",
+        "pool": [
+          "g_1",
+          "g_2",
+          "g_3",
+          "g_4"
+        ],
+        "timerSec": 30
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571575722_521",
+      "timestamp": 1777571575722,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571624271_395",
+      "timestamp": 1777571624271,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "tie-break",
+        "action": "manual",
+        "overrideGameId": "g_1"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571751746_19",
+      "timestamp": 1777571751746,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777569713510_f5fd72",
+        "gameIds": [
+          "g_1"
+        ],
+        "source": "admin"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571751747_420",
+      "timestamp": 1777571751747,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777569726603_c910ec",
+        "gameIds": [
+          "g_1"
+        ],
+        "source": "admin"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571751752_469",
+      "timestamp": 1777571751752,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777569727419_57fa98",
+        "gameIds": [
+          "g_2"
+        ],
+        "source": "admin"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571751755_10",
+      "timestamp": 1777571751755,
+      "type": "vote",
+      "payload": {
+        "playerId": "p_1777569728226_7bce62",
+        "gameIds": [
+          "g_2"
+        ],
+        "source": "admin"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571759077_582",
+      "timestamp": 1777571759077,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571763278_214",
+      "timestamp": 1777571763278,
+      "type": "spin",
+      "payload": {
+        "candidates": [
+          "g_1",
+          "g_2"
+        ],
+        "winnerId": "g_2",
+        "wheelVariant": "pie"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790962_10",
+      "timestamp": 1777571790962,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_1",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790962_286",
+      "timestamp": 1777571790962,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_2",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790966_242",
+      "timestamp": 1777571790966,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_3",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790969_247",
+      "timestamp": 1777571790969,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_4",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790975_438",
+      "timestamp": 1777571790975,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-start",
+        "mode": "MULTI",
+        "pool": [
+          "g_1",
+          "g_2",
+          "g_3",
+          "g_4"
+        ],
+        "timerSec": 60
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571790980_239",
+      "timestamp": 1777571790980,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777571803551_255",
+      "timestamp": 1777571803551,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "tie-break",
+        "action": "override",
+        "overrideGameId": "g_3"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572377008_694",
+      "timestamp": 1777572377008,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572378565_905",
+      "timestamp": 1777572378565,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572486530_108",
+      "timestamp": 1777572486530,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_6",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572486817_183",
+      "timestamp": 1777572486817,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_5",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572487105_92",
+      "timestamp": 1777572487105,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_7",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572487397_170",
+      "timestamp": 1777572487397,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_8",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572627185_997",
+      "timestamp": 1777572627185,
+      "type": "player-join",
+      "payload": {
+        "name": "Xaver"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572668907_340",
+      "timestamp": 1777572668907,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572670499_156",
+      "timestamp": 1777572670499,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "soulmask-start"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572696180_904",
+      "timestamp": 1777572696180,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_1"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572696845_898",
+      "timestamp": 1777572696845,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "all"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1777572698497_475",
+      "timestamp": 1777572698497,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_8"
+      },
+      "actorId": null
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "pre-match",
+      "filename": "checkpoint_pre-match_1777570363.json",
+      "createdAt": 1777570363052,
+      "trigger": "auto",
+      "stateVersion": 20
+    },
+    {
+      "label": "match-done",
+      "filename": "checkpoint_match-done_1777570393.json",
+      "createdAt": 1777570393767,
+      "trigger": "auto",
+      "stateVersion": 22
+    },
+    {
+      "label": "manual",
+      "filename": "checkpoint_manual_1777571071.json",
+      "createdAt": 1777571071869,
+      "trigger": "manual",
+      "stateVersion": 22
+    }
+  ],
+  "uiPreferences": {
+    "tvTheme": "dark-arcade",
+    "wheelVariant": "pie"
+  },
+  "simulationActive": false
+}

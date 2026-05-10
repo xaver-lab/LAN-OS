@@ -657,8 +657,10 @@ export function ColorPicker({
             padding: 8,
             zIndex: 1000,
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(4, 1fr)",
             gap: 6,
+            maxHeight: 280,
+            overflowY: "auto",
             boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
           }}
         >

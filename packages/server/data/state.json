@@ -1,12 +1,12 @@
 {
-  "version": 62,
+  "version": 103,
   "schemaVersion": "3.0",
   "activeTracks": [
     "TOURNAMENT",
     "SOULMASK"
   ],
   "tournamentState": "LOBBY",
-  "soulmaskState": "ACTIVE",
+  "soulmaskState": "IDLE",
   "config": {
     "votingMode": "MULTI",
     "votingTimerSec": 120,
@@ -84,15 +84,35 @@
       }
     },
     {
-      "id": "p_1777569728226_7bce62",
-      "name": "TestSpieler4",
-      "color": "#ffb830",
+      "id": "p_1777572627185_95b8cd",
+      "name": "Xaver",
+      "color": "#ff6b35",
       "points": 0,
       "role": "Spieler",
       "activeTracks": [
         "TOURNAMENT"
       ],
-      "online": false,
+      "online": true,
+      "lastSeen": 1778411748958,
+      "sessionToken": "5114641a59dc3ac6230ceef89ec661dc71bc021e9e695d5a",
+      "warnings": 1,
+      "playtimeSec": 0,
+      "streak": {
+        "current": 0,
+        "best": 0,
+        "lastBonusAt": 0
+      }
+    },
+    {
+      "id": "p_1778411115502_d07f83",
+      "name": "Tobi",
+      "color": "#00aaff",
+      "points": 0,
+      "role": "Spieler",
+      "activeTracks": [
+        "TOURNAMENT"
+      ],
+      "online": true,
       "lastSeen": 0,
       "sessionToken": "",
       "warnings": 0,
@@ -104,17 +124,17 @@
       }
     },
     {
-      "id": "p_1777571266200_82d2c5",
-      "name": "TestPlayer99",
-      "color": "#a855f7",
+      "id": "p_1778412561731_83a718",
+      "name": "TestKickPlayer",
+      "color": "#ffb830",
       "points": 0,
       "role": "Spieler",
       "activeTracks": [
         "TOURNAMENT"
       ],
       "online": true,
-      "lastSeen": 1777571754051,
-      "sessionToken": "fc8122712e4c630885c96638df638db9a9da955e23b08971",
+      "lastSeen": 0,
+      "sessionToken": "",
       "warnings": 0,
       "playtimeSec": 0,
       "streak": {
@@ -124,17 +144,17 @@
       }
     },
     {
-      "id": "p_1777572627185_95b8cd",
-      "name": "Xaver",
-      "color": "#ff6b35",
+      "id": "p_1778412575189_85f253",
+      "name": "TestPlayer123",
+      "color": "#a855f7",
       "points": 0,
       "role": "Spieler",
       "activeTracks": [
         "TOURNAMENT"
       ],
       "online": true,
-      "lastSeen": 1777572698496,
-      "sessionToken": "5114641a59dc3ac6230ceef89ec661dc71bc021e9e695d5a",
+      "lastSeen": 0,
+      "sessionToken": "",
       "warnings": 0,
       "playtimeSec": 0,
       "streak": {
@@ -171,13 +191,20 @@
       "title": "Rocket League",
       "tag": "Sport",
       "color": "#00aaff",
-      "avgDurationMin": null,
-      "recommendedPlayers": null,
-      "suitableModes": [],
+      "avgDurationMin": 12,
+      "recommendedPlayers": {
+        "min": 2,
+        "max": 8
+      },
+      "suitableModes": [
+        "1v1",
+        "2v2",
+        "team"
+      ],
       "complexity": "medium",
-      "tournamentSuitability": 0,
-      "chaosPotential": 0,
-      "aiAnalyzed": false,
+      "tournamentSuitability": 85,
+      "chaosPotential": 50,
+      "aiAnalyzed": true,
       "inActivePool": true
     },
     {
@@ -1146,29 +1173,416 @@
         "id": "g_8"
       },
       "actorId": null
+    },
+    {
+      "id": "e_1778411115502_6",
+      "timestamp": 1778411115502,
+      "type": "player-join",
+      "payload": {
+        "name": "Tobi"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778411992037_423",
+      "timestamp": 1778411992037,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777571266200_82d2c5",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778411994369_681",
+      "timestamp": 1778411994369,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777571266200_82d2c5",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778411996910_483",
+      "timestamp": 1778411996910,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777569728226_7bce62",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778411999081_224",
+      "timestamp": 1778411999081,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777569727419_57fa98",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778411999914_125",
+      "timestamp": 1778411999914,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777569726603_c910ec",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412128869_348",
+      "timestamp": 1778412128869,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-manual-add",
+        "name": "LOl"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412170787_603",
+      "timestamp": 1778412170787,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412177992_378",
+      "timestamp": 1778412177992,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412205318_391",
+      "timestamp": 1778412205318,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "checkpoint-delete",
+        "filename": "checkpoint_manual_1777571071.json"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412214324_244",
+      "timestamp": 1778412214324,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "checkpoint-create",
+        "label": "tEST"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412216433_29",
+      "timestamp": 1778412216433,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "checkpoint-delete",
+        "filename": "checkpoint_pre-match_1777570363.json"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412217470_210",
+      "timestamp": 1778412217470,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "checkpoint-delete",
+        "filename": "checkpoint_match-done_1777570393.json"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412219024_304",
+      "timestamp": 1778412219024,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_1"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412220862_866",
+      "timestamp": 1778412220862,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_8"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412221558_16",
+      "timestamp": 1778412221558,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_2"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412221856_658",
+      "timestamp": 1778412221856,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_2"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412223906_466",
+      "timestamp": 1778412223906,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "all"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412383691_298",
+      "timestamp": 1778412383691,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412388084_0",
+      "timestamp": 1778412388084,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412397458_71",
+      "timestamp": 1778412397458,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777571266200_82d2c5",
+        "reason": "admin-delete"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412399118_280",
+      "timestamp": 1778412399118,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1777569728226_7bce62",
+        "reason": "admin-delete"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412401946_792",
+      "timestamp": 1778412401946,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1778412128870_b9b542",
+        "reason": "admin-delete"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412412433_36",
+      "timestamp": 1778412412433,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "player-warn",
+        "playerId": "p_1777572627185_95b8cd"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412417587_762",
+      "timestamp": 1778412417587,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1778411115502_d07f83",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412515472_347",
+      "timestamp": 1778412515472,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412515960_236",
+      "timestamp": 1778412515960,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412516755_73",
+      "timestamp": 1778412516755,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412517124_551",
+      "timestamp": 1778412517124,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412517618_534",
+      "timestamp": 1778412517618,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412518050_920",
+      "timestamp": 1778412518050,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412519973_124",
+      "timestamp": 1778412519973,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412520659_261",
+      "timestamp": 1778412520659,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412521812_870",
+      "timestamp": 1778412521812,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412522117_176",
+      "timestamp": 1778412522117,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412561730_64",
+      "timestamp": 1778412561730,
+      "type": "player-join",
+      "payload": {
+        "name": "TestKickPlayer"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412562357_818",
+      "timestamp": 1778412562357,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1778412561731_83a718",
+        "reason": "admin-kick"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412575189_136",
+      "timestamp": 1778412575189,
+      "type": "player-join",
+      "payload": {
+        "name": "TestPlayer123"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412575749_706",
+      "timestamp": 1778412575749,
+      "type": "player-leave",
+      "payload": {
+        "playerId": "p_1778412575189_85f253",
+        "reason": "admin-kick"
+      },
+      "actorId": null
     }
   ],
   "checkpoints": [
     {
-      "label": "pre-match",
-      "filename": "checkpoint_pre-match_1777570363.json",
-      "createdAt": 1777570363052,
-      "trigger": "auto",
-      "stateVersion": 20
-    },
-    {
-      "label": "match-done",
-      "filename": "checkpoint_match-done_1777570393.json",
-      "createdAt": 1777570393767,
-      "trigger": "auto",
-      "stateVersion": 22
-    },
-    {
-      "label": "manual",
-      "filename": "checkpoint_manual_1777571071.json",
-      "createdAt": 1777571071869,
+      "label": "tEST",
+      "filename": "checkpoint_tEST_1778412214.json",
+      "createdAt": 1778412214322,
       "trigger": "manual",
-      "stateVersion": 22
+      "stateVersion": 74
     }
   ],
   "uiPreferences": {

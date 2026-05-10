@@ -33,7 +33,7 @@ export function TasksTab({ state, playerId, reload }: Props) {
   async function toggle(taskId: string, done: boolean) {
     setBusy(taskId);
     try { await toggleTask(taskId, done); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(null); }
   }
 

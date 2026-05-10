@@ -186,6 +186,8 @@ export interface Match {
   roundResults: RoundResult[];
   /** AI-generierte oder Admin-definierte Scoring-Regeln (neu in v3.1) */
   scoringRules: ScoringRule[];
+  /** Flag: Ein Spieler dieses Matches wurde gelöscht (Admin-Funktion) */
+  noticedPlayerDeletion?: boolean;
 }
 
 export interface ModifierRules {

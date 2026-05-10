@@ -36,28 +36,28 @@ export function Tournament({ state, reload }: Props) {
     try {
       await post("/admin/matches/setup", { type: setupType, teamA: setupTeamA, teamB: setupTeamB, gameId: setupGameId, modifiers: setupModifiers });
       reload();
-    } catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    } catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
   async function startMatch(matchId: string) {
     setBusy(true);
     try { await post(`/admin/matches/${matchId}/start`); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
   async function confirmMatch(matchId: string) {
     setBusy(true);
     try { await post(`/admin/matches/${matchId}/confirm`); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
   async function skipMatch(matchId: string) {
     setBusy(true);
     try { await post(`/admin/matches/${matchId}/skip`); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 

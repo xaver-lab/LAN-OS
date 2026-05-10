@@ -10,6 +10,7 @@ import {
   cancelVoting,
   confirmMatch,
   createEmptyState,
+  deletePlayer,
   endSoulmask,
   endVoting,
   finishSpin,
@@ -248,6 +249,22 @@ adminRouter.post("/players/:id/kick", async (req, res) => {
       log: {
         type: "player-leave",
         payload: { playerId: id, reason: "admin-kick" },
+      },
+    });
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.delete("/players/:id", async (req, res) => {
+  try {
+    const c = getContainer();
+    const id = req.params["id"]!;
+    await c.mutate((s) => deletePlayer(s, id), {
+      log: {
+        type: "player-leave",
+        payload: { playerId: id, reason: "admin-delete" },
       },
     });
     res.json({ ok: true });
@@ -808,6 +825,7 @@ adminRouter.post("/games", async (req, res) => {
       chaosPotential: 0,
       aiAnalyzed: false,
       inActivePool: false,
+      scoringRules: [],
     };
     await c.mutate(
       (s) => ({ ...s, games: [...s.games, analyzeGame(game)] }),

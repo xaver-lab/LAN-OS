@@ -22,6 +22,7 @@ export function Players({ state, reload }: Props) {
   const [addColor, setAddColor] = useState("");
   const [adding, setAdding] = useState(false);
   const [kickTarget, setKickTarget] = useState<Player | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Player | null>(null);
   const [warnTarget, setWarnTarget] = useState<Player | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -50,6 +51,19 @@ export function Players({ state, reload }: Props) {
     } finally {
       setBusy(null);
       setKickTarget(null);
+    }
+  }
+
+  async function deletePlayerFn(playerId: string) {
+    setBusy(playerId);
+    try {
+      await del(`/admin/players/${playerId}`);
+      reload();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(null);
+      setDeleteTarget(null);
     }
   }
 
@@ -101,6 +115,7 @@ export function Players({ state, reload }: Props) {
               player={p}
               busy={busy === p.id}
               onKick={() => setKickTarget(p)}
+              onDelete={() => setDeleteTarget(p)}
               onWarn={() => setWarnTarget(p)}
             />
           ))}
@@ -116,6 +131,17 @@ export function Players({ state, reload }: Props) {
         dangerous
         onConfirm={() => kickTarget && kickPlayer(kickTarget.id)}
         onCancel={() => setKickTarget(null)}
+      />
+
+      {/* Delete Confirm */}
+      <ConfirmDialog
+        open={!!deleteTarget}
+        title={`${deleteTarget?.name} löschen?`}
+        message="Der Spieler wird vollständig aus dem System entfernt. Matches mit diesem Spieler werden als 'Spieler gelöscht' markiert. Dies kann nicht rückgängig gemacht werden!"
+        confirmLabel="Löschen"
+        dangerous
+        onConfirm={() => deleteTarget && deletePlayerFn(deleteTarget.id)}
+        onCancel={() => setDeleteTarget(null)}
       />
 
       {/* Warn Confirm */}
@@ -136,11 +162,13 @@ function PlayerRow({
   player,
   busy,
   onKick,
+  onDelete,
   onWarn,
 }: {
   player: Player;
   busy: boolean;
   onKick: () => void;
+  onDelete: () => void;
   onWarn: () => void;
 }) {
   return (
@@ -230,6 +258,14 @@ function PlayerRow({
           style={{ padding: "3px 10px", fontSize: 12 }}
         >
           Kick
+        </NeonButton>
+        <NeonButton
+          variant="danger"
+          disabled={busy}
+          onClick={onDelete}
+          style={{ padding: "3px 10px", fontSize: 12, opacity: 0.7 }}
+        >
+          Del
         </NeonButton>
       </div>
     </div>

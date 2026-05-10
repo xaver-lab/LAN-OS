@@ -16,7 +16,7 @@ import type { SystemState } from "@lan-os/shared";
 export function App() {
   const { state, connectionError } = usePollingState({
     fetchFn: fetchPublicState,
-    intervalMs: 1000,
+    intervalMs: 500,
   });
 
   useEffect(() => {

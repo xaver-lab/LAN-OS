@@ -49,7 +49,7 @@ export function System({ state, reload }: Props) {
   async function act(path: string, body?: unknown) {
     setBusy(true);
     try { await post(path, body); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 

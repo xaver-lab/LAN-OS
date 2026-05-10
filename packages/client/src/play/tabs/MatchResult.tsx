@@ -54,6 +54,7 @@ export function MatchResultTab({ state, playerId, reload }: Props) {
       setSubmitted(true);
       reload();
     } catch (e) {
+      await reload();
       alert(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);

@@ -32,7 +32,7 @@ export function Voting({ state, reload }: Props) {
     if (pool.length < state.config.votingMinPool) { alert(`Mindestens ${state.config.votingMinPool} Spiele im Pool nötig.`); return; }
     setBusy(true);
     try { await post("/admin/voting/start", { mode, pool, timerSec: Number(timerSec) }); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 

@@ -1,6 +1,7 @@
 // §14 Version-aware polling hook.
 // Sendet ?since=lastVersion; bei notModified kein Re-Render.
 // N Fehler in Folge → connectionError gesetzt.
+// 401 Fehler → onAuthError callback (Spieler gekickt).
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { SystemState } from "@lan-os/shared";
@@ -12,18 +13,20 @@ interface PollingOptions {
   fetchFn: (since?: number) => Promise<StateResponse>;
   intervalMs: number;
   enabled?: boolean;
+  onAuthError?: () => void; // Callback wenn 401 (z.B. gekickt)
 }
 
 interface PollingResult {
   state: SystemState | null;
   connectionError: string;
-  reload: () => void;
+  reload: () => Promise<void>;
 }
 
 export function usePollingState({
   fetchFn,
   intervalMs,
   enabled = true,
+  onAuthError,
 }: PollingOptions): PollingResult {
   const [state, setState] = useState<SystemState | null>(null);
   const [connectionError, setConnectionError] = useState("");
@@ -43,18 +46,26 @@ export function usePollingState({
         setState(resp.state);
       }
     } catch (err) {
+      // 401 = ungültiger Token (gekickt oder abgelaufen)
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      if (errorMsg.includes("401") || errorMsg.includes("Auth required")) {
+        setConnectionError(""); // Kein generischer Fehler
+        onAuthError?.();
+        return;
+      }
+
       errCountRef.current++;
       if (errCountRef.current >= MAX_ERRORS) {
-        setConnectionError(err instanceof Error ? err.message : String(err));
+        setConnectionError(errorMsg);
       }
     }
-  }, [fetchFn]);
+  }, [fetchFn, onAuthError]);
 
-  const reload = useCallback(() => {
+  const reload = useCallback((): Promise<void> => {
     versionRef.current = undefined;
     errCountRef.current = 0;
     setConnectionError("");
-    doFetch();
+    return doFetch();
   }, [doFetch]);
 
   useEffect(() => {

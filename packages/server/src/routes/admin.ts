@@ -6,6 +6,7 @@ import {
   addGlobalGoal,
   addSoulmaskCustomRole,
   addSoulmaskTask,
+  analyzeMatchResults,
   assignSoulmaskRole,
   cancelVoting,
   confirmMatch,
@@ -1115,6 +1116,75 @@ adminRouter.post("/matches/:matchId/scoring/generate", async (req, res) => {
       balanceNotes: generatedRules.balanceNotes,
       modifierMultiplier: generatedRules.modifierMultiplier,
     });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.post("/matches/:matchId/analysis", async (req, res) => {
+  try {
+    const c = getContainer();
+    const matchId = req.params["matchId"]!;
+    const {
+      duration,
+      competitiveness,
+      balanceRating,
+      predictability,
+      insights,
+      qualityTier,
+    } = req.body ?? {};
+
+    const s = c.get();
+    const match = s.matches.find((m) => m.id === matchId);
+
+    if (!match) {
+      res.status(404).json({ error: "Match not found" });
+      return;
+    }
+
+    await c.mutate(
+      (s) =>
+        analyzeMatchResults(
+          s,
+          matchId,
+          {
+            duration: Number(duration) || 0,
+            competitiveness: Math.min(
+              100,
+              Math.max(0, Number(competitiveness) || 50)
+            ),
+            balanceRating: Math.min(
+              100,
+              Math.max(0, Number(balanceRating) || 50)
+            ),
+            predictability: Math.min(
+              100,
+              Math.max(0, Number(predictability) || 0)
+            ),
+            insights: Array.isArray(insights) ? insights : [],
+            qualityTier:
+              qualityTier &&
+              ["poor", "fair", "good", "excellent"].includes(qualityTier)
+                ? qualityTier
+                : "fair",
+          },
+          Date.now()
+        ),
+      {
+        log: {
+          type: "admin-action",
+          payload: {
+            actionType: "match-analysis",
+            matchId,
+            competitiveness,
+            balanceRating,
+          },
+          actorId: null,
+        },
+      }
+    );
+
+    res.json({ ok: true });
   } catch (err) {
     handleErr(res, err);
   }

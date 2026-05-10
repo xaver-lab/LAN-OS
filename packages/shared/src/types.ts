@@ -167,6 +167,18 @@ export interface ScoringRule {
   description?: string;
 }
 
+export interface GameAnalysis {
+  matchId: string;
+  gameId: string;
+  analyzedAt: number;
+  duration: number;
+  competitiveness: number;
+  balanceRating: number;
+  predictability: number;
+  insights: string[];
+  qualityTier: "poor" | "fair" | "good" | "excellent";
+}
+
 export interface Match {
   id: string;
   roundNumber: number;
@@ -186,6 +198,8 @@ export interface Match {
   roundResults: RoundResult[];
   /** AI-generierte oder Admin-definierte Scoring-Regeln (neu in v3.1) */
   scoringRules: ScoringRule[];
+  /** AI-generierte Game-Analysis mit Metadaten (neu in v3.2) */
+  gameAnalysis?: GameAnalysis;
   /** Flag: Ein Spieler dieses Matches wurde gelöscht (Admin-Funktion) */
   noticedPlayerDeletion?: boolean;
 }

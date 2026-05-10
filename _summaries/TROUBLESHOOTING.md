@@ -92,6 +92,64 @@ ls -lt | tail -n +6 | awk '{print $NF}' | xargs rm
 
 ---
 
+### Problem 1e: "npm tsx not available" Fehler beim Starten
+
+**Symptome:**
+- Fehler: `command not found: tsx` oder `Cannot find module 'tsx'`
+- Verwendet `npm run dev` (nicht empfohlen für Event!)
+- oder: npm workspace PATH-Problem bei Monorepo-Setup
+
+**Schnell-Diagnose:**
+```bash
+# Ist npm install komplett?
+npm list tsx
+# sollte zeigen: packages/server → tsx@^4.x.x
+
+# Läuft der dev-Command?
+npm run dev  # ← NICHT verwenden!
+```
+
+**Fixes (in dieser Reihenfolge):**
+
+#### Fix 1e-a: npm run dev → npm run start (EMPFOHLEN)
+```bash
+# Nicht `npm run dev` verwenden!
+# Statt dessen:
+
+npm run start              # Standard: benutzt pre-compiliertes dist/
+# oder:
+npm run start:fresh        # Sauberer Rebuild: tsc + npm start
+```
+
+#### Fix 1e-b: npm install erneut (falls npm run start auch fehlt)
+```bash
+# Workspace-Dependencies neu installieren
+npm install
+
+# Oder spezifisch im Server-Paket:
+cd packages/server
+npm install
+cd ../..
+
+# Dann erneut versuchen:
+npm run start
+```
+
+#### Fix 1e-c: Falls `npm run dev` absolut nötig (Development-Modus)
+```bash
+# tsx lokal im packages/server Paket neu installieren
+cd packages/server
+npm install --save-dev tsx
+cd ../..
+
+# Jetzt sollte npm run dev funktionieren:
+npm run dev
+
+# Aber NICHT während Event verwenden!
+```
+
+---
+
 ### Problem 2: Clients können Server nicht erreichen
 
 **Symptome:**

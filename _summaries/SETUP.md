@@ -172,12 +172,19 @@ sudo iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
 
 ### SCHRITT 6: Server starten
 
+**⚠️ WICHTIG:** Verwende **NICHT** `npm run dev` während des Events!
+- `npm run dev` benötigt `tsx` im npm-PATH (kann in Monorepo-Setups fehlschlagen)
+- **Immer verwenden:** `npm run start` (oder `npm run start:fresh` für sauberer Rebuild)
+
 ```bash
-# Standard-Start (Port 3000)
+# Standard-Start (Port 3000) — EMPFOHLEN
 npm run start
 
 # Mit Logging in Datei (empfohlen für Event)
 npm run start 2>&1 | tee lan-os-event-$(date +%Y%m%d_%H%M%S).log
+
+# Sauberer Start (Build + Start in einem Schritt)
+npm run start:fresh
 
 # Mit benutzerdefiniertem Port (falls 3000 belegt)
 PORT=8080 npm run start

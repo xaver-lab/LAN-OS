@@ -665,6 +665,41 @@ export function overrideMatchScores(
   return next;
 }
 
+export function analyzeMatchResults(
+  state: SystemState,
+  matchId: string,
+  analysis: {
+    duration: number;
+    competitiveness: number;
+    balanceRating: number;
+    predictability?: number;
+    insights?: string[];
+    qualityTier?: "poor" | "fair" | "good" | "excellent";
+  },
+  now: number,
+): SystemState {
+  const next = clone(state);
+  const match = findMatch(next, matchId);
+  const game = findGame(next, match.gameId);
+
+  match.gameAnalysis = {
+    matchId,
+    gameId: match.gameId,
+    analyzedAt: now,
+    duration: analysis.duration ?? 0,
+    competitiveness: Math.min(100, Math.max(0, analysis.competitiveness ?? 50)),
+    balanceRating: Math.min(100, Math.max(0, analysis.balanceRating ?? 50)),
+    predictability: Math.min(
+      100,
+      Math.max(0, analysis.predictability ?? 0),
+    ),
+    insights: Array.isArray(analysis.insights) ? analysis.insights : [],
+    qualityTier: analysis.qualityTier ?? "fair",
+  };
+
+  return next;
+}
+
 export function skipRound(state: SystemState): SystemState {
   if (
     state.tournamentState !== "MATCH_SETUP" &&

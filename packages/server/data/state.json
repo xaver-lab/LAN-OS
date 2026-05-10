@@ -1,5 +1,5 @@
 {
-  "version": 103,
+  "version": 115,
   "schemaVersion": "3.0",
   "activeTracks": [
     "TOURNAMENT",
@@ -93,7 +93,7 @@
         "TOURNAMENT"
       ],
       "online": true,
-      "lastSeen": 1778411748958,
+      "lastSeen": 1778412894416,
       "sessionToken": "5114641a59dc3ac6230ceef89ec661dc71bc021e9e695d5a",
       "warnings": 1,
       "playtimeSec": 0,
@@ -1574,6 +1574,64 @@
         "reason": "admin-kick"
       },
       "actorId": null
+    },
+    {
+      "id": "e_1778412809795_767",
+      "timestamp": 1778412809795,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "soulmask-start"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412811002_429",
+      "timestamp": 1778412811002,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "soulmask-pause"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412811747_989",
+      "timestamp": 1778412811747,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "soulmask-resume"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412812370_671",
+      "timestamp": 1778412812370,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "soulmask-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412815008_520",
+      "timestamp": 1778412815008,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778412815820_553",
+      "timestamp": 1778412815820,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
     }
   ],
   "checkpoints": [
@@ -1583,11 +1641,18 @@
       "createdAt": 1778412214322,
       "trigger": "manual",
       "stateVersion": 74
+    },
+    {
+      "label": "soulmask-done",
+      "filename": "checkpoint_soulmask-done_1778412812.json",
+      "createdAt": 1778412812372,
+      "trigger": "auto",
+      "stateVersion": 107
     }
   ],
   "uiPreferences": {
     "tvTheme": "dark-arcade",
     "wheelVariant": "pie"
   },
-  "simulationActive": false
+  "simulationActive": true
 }

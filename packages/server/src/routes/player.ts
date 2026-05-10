@@ -3,6 +3,7 @@
 
 import { Router } from "express";
 import {
+  assignSoulmaskRole,
   setMatchMvp,
   submitScores,
   submitVote,
@@ -118,6 +119,29 @@ playerRouter.post("/task/:taskId", async (req, res) => {
         },
       },
     );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+playerRouter.post("/soulmask/role", async (req, res) => {
+  const playerId = authPlayer(req);
+  if (!playerId) return unauthorized(res);
+  try {
+    const { roleId } = req.body ?? {};
+    if (!roleId) {
+      res.status(400).json({ error: "roleId required" });
+      return;
+    }
+    const c = getContainer();
+    await c.mutate((s) => assignSoulmaskRole(s, playerId, roleId, Date.now()), {
+      log: {
+        type: "admin-action",
+        payload: { actionType: "soulmask-assign-role", playerId, roleId },
+        actorId: playerId,
+      },
+    });
     res.json({ ok: true });
   } catch (err) {
     handleErr(res, err);

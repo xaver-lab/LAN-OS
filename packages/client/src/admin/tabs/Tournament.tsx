@@ -10,6 +10,7 @@ import {
   Badge,
 } from "../../design/components/index.js";
 import { post } from "../../api/client.js";
+import { ModifierModal } from "./ModifierModal.js";
 
 interface Props {
   state: SystemState;
@@ -23,6 +24,7 @@ export function Tournament({ state, reload }: Props) {
   const [setupTeamB, setSetupTeamB] = useState<string[]>([]);
   const [setupGameId, setSetupGameId] = useState("");
   const [setupModifiers, setSetupModifiers] = useState<string[]>([]);
+  const [modifierModalOpen, setModifierModalOpen] = useState(false);
 
   const activeMatch = state.matches.find(
     (m) => m.status === "active" || m.status === "result-pending",
@@ -74,8 +76,21 @@ export function Tournament({ state, reload }: Props) {
 
   return (
     <div style={{ display: "grid", gap: 16, maxWidth: 900 }}>
+      <ModifierModal
+        open={modifierModalOpen}
+        state={state}
+        onClose={() => setModifierModalOpen(false)}
+        onSuccess={reload}
+      />
+
       {(isMatchActive || isResultPending) && activeMatch && (
         <ActiveMatchCard match={activeMatch} state={state} busy={busy} onConfirm={() => confirmMatch(activeMatch.id)} onSkip={() => skipMatch(activeMatch.id)} reload={reload} />
+      )}
+
+      {(canSetup || state.matches.length > 0) && (
+        <NeonButton onClick={() => setModifierModalOpen(true)} fullWidth style={{ marginBottom: 8 }}>
+          ⚙️ Modifiers für Match
+        </NeonButton>
       )}
 
       {canSetup && (

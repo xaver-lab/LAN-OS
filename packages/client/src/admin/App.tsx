@@ -12,6 +12,7 @@ import { Tournament } from "./tabs/Tournament.js";
 import { Bracket } from "./tabs/Bracket.js";
 import { Soulmask } from "./tabs/Soulmask.js";
 import { System } from "./tabs/System.js";
+import { GameAnalysis } from "./tabs/GameAnalysis.js";
 
 const TABS = [
   { id: "overview",   label: "Overview",    icon: "⬡" },
@@ -20,6 +21,7 @@ const TABS = [
   { id: "tournament", label: "Tournament",  icon: "⚔" },
   { id: "bracket",    label: "Bracket",     icon: "⚊" },
   { id: "soulmask",   label: "Soulmask",    icon: "☩" },
+  { id: "games",      label: "Games",       icon: "🎮" },
   { id: "system",     label: "System",      icon: "⚙" },
 ];
 
@@ -106,6 +108,7 @@ export function App() {
             {activeTab === "tournament" && <Tournament state={state} reload={reload} />}
             {activeTab === "bracket"    && <Bracket state={state} reload={reload} />}
             {activeTab === "soulmask"   && <Soulmask state={state} reload={reload} />}
+            {activeTab === "games"      && <GameAnalysis state={state} reload={reload} />}
             {activeTab === "system"     && <System state={state} reload={reload} />}
           </>
         )}

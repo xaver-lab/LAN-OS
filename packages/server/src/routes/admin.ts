@@ -1026,3 +1026,185 @@ adminRouter.get("/system/info", (_req, res) => {
     uptimeSec: process.uptime(),
   });
 });
+
+/* ───────────── Tournament Bracket ───────────── */
+
+adminRouter.post("/tournament/bracket/generate", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { timeBudgetMin, difficultyFilter } = req.body ?? {};
+
+    await c.mutate(
+      (s) => {
+        const activePlayers = s.players.filter(
+          (p) => p.role === "Spieler" && p.activeTracks.includes("TOURNAMENT")
+        );
+
+        if (activePlayers.length < 2) {
+          throw new Error("At least 2 active players required for bracket generation");
+        }
+
+        // Simple balanced bracket generation
+        const rounds: import("@lan-os/shared").BracketRound[] = [];
+        const availableGames = s.games.filter((g) => g.inActivePool);
+
+        if (availableGames.length === 0) {
+          throw new Error("No games available for bracket");
+        }
+
+        // Create first round: pair all active players
+        const players = [...activePlayers];
+        const matches: import("@lan-os/shared").BracketMatch[] = [];
+
+        for (let i = 0; i < players.length - 1; i += 2) {
+          const playerA = players[i];
+          const playerB = players[i + 1];
+          const gameId = availableGames[i % availableGames.length].id;
+
+          matches.push({
+            id: `match_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+            playerA: playerA.id,
+            playerB: playerB.id,
+            gameId,
+            status: "pending" as const,
+            matchId: null,
+          });
+        }
+
+        // Handle odd player out
+        if (players.length % 2 === 1) {
+          const lastPlayer = players[players.length - 1];
+          matches.push({
+            id: `match_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+            playerA: lastPlayer.id,
+            playerB: lastPlayer.id, // Bye match
+            gameId: availableGames[0].id,
+            status: "pending" as const,
+            matchId: null,
+          });
+        }
+
+        rounds.push({ roundNum: 1, matches });
+
+        const bracket: import("@lan-os/shared").TournamentBracket = {
+          id: `bracket_${Date.now()}`,
+          createdAt: Date.now(),
+          createdBy: "admin",
+          rounds,
+          status: "draft" as const,
+          rationale: `Auto-generated with ${timeBudgetMin}min budget, filter: ${difficultyFilter}`,
+        };
+
+        return {
+          ...s,
+          tournament: bracket,
+        };
+      },
+      {
+        log: {
+          type: "admin-action",
+          payload: {
+            actionType: "bracket-generate",
+            timeBudgetMin,
+            difficultyFilter,
+          },
+        },
+      }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.get("/tournament/bracket", (_req, res) => {
+  try {
+    const c = getContainer();
+    const s = c.get();
+    res.json({ bracket: s.tournament });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.put("/tournament/bracket/:bracketId/match/:matchId", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { bracketId, matchId } = req.params;
+    const { playerA, playerB, gameId } = req.body ?? {};
+
+    await c.mutate(
+      (s) => {
+        if (!s.tournament || s.tournament.id !== bracketId) {
+          throw new Error("Bracket not found");
+        }
+
+        const bracket = { ...s.tournament };
+        let found = false;
+
+        bracket.rounds = bracket.rounds.map((round) => ({
+          ...round,
+          matches: round.matches.map((match) => {
+            if (match.id === matchId) {
+              found = true;
+              return {
+                ...match,
+                playerA: playerA ?? match.playerA,
+                playerB: playerB ?? match.playerB,
+                gameId: gameId ?? match.gameId,
+              };
+            }
+            return match;
+          }),
+        }));
+
+        if (!found) {
+          throw new Error("Match not found in bracket");
+        }
+
+        return { ...s, tournament: bracket };
+      },
+      {
+        log: {
+          type: "admin-action",
+          payload: { actionType: "bracket-edit-match", matchId, playerA, playerB, gameId },
+        },
+      }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.post("/tournament/bracket/:bracketId/match/:matchId/delete", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { bracketId, matchId } = req.params;
+
+    await c.mutate(
+      (s) => {
+        if (!s.tournament || s.tournament.id !== bracketId) {
+          throw new Error("Bracket not found");
+        }
+
+        const bracket = { ...s.tournament };
+        bracket.rounds = bracket.rounds.map((round) => ({
+          ...round,
+          matches: round.matches.filter((m) => m.id !== matchId),
+        }));
+
+        return { ...s, tournament: bracket };
+      },
+      {
+        log: {
+          type: "admin-action",
+          payload: { actionType: "bracket-delete-match", matchId },
+        },
+      }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});

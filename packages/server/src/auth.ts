@@ -4,6 +4,8 @@ import { randomBytes } from "node:crypto";
 import {
   PLAYER_COLOR_PALETTE,
   type Player,
+  type PlayerRole,
+  type Track,
   type SystemState,
 } from "@lan-os/shared";
 
@@ -38,6 +40,8 @@ function pickColor(state: SystemState, requested?: string): string {
 export interface LoginArgs {
   name: string;
   colorWish?: string;
+  role?: PlayerRole;
+  activeTracks?: Track[];
 }
 
 export interface LoginResult {
@@ -80,8 +84,8 @@ export function loginPlayer(
     name: trimmed,
     color,
     points: 0,
-    role: "Spieler",
-    activeTracks: ["TOURNAMENT"],
+    role: args.role ?? "Spieler",
+    activeTracks: args.activeTracks ?? ["TOURNAMENT"],
     online: true,
     lastSeen: now,
     sessionToken: genToken(),

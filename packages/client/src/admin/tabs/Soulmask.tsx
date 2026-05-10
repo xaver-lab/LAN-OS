@@ -29,6 +29,8 @@ export function Soulmask({ state, reload }: Props) {
   const [newRoleColor, setNewRoleColor] = useState("#39ff6e");
   const [newTaskLabel, setNewTaskLabel] = useState("");
   const [newTaskPlayerId, setNewTaskPlayerId] = useState("");
+  const [newTaskRole, setNewTaskRole] = useState("");
+  const [taskLabelError, setTaskLabelError] = useState("");
   const [newGoalLabel, setNewGoalLabel] = useState("");
 
   async function act(path: string, body?: unknown) {
@@ -142,18 +144,62 @@ export function Soulmask({ state, reload }: Props) {
       <Card title={`Tasks (${sm.tasks.filter((t) => t.done).length}/${sm.tasks.length} erledigt)`}>
         <div style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap", marginBottom: 12 }}>
           <div style={{ flex: 2, minWidth: 160 }}>
-            <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>TASK</label>
-            <NeonInput value={newTaskLabel} onChange={setNewTaskLabel} placeholder="Task-Label…" />
+            <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>TASK-LABEL</label>
+            <NeonInput
+              value={newTaskLabel}
+              onChange={(v) => {
+                setNewTaskLabel(v);
+                if (taskLabelError) setTaskLabelError("");
+              }}
+              placeholder="Was muss getan werden…"
+              maxLength={100}
+              style={{ borderColor: taskLabelError ? "#ff2d6b" : undefined }}
+            />
+            {taskLabelError && (
+              <div style={{ fontSize: 11, color: "#ff2d6b", marginTop: 3 }}>
+                {taskLabelError}
+              </div>
+            )}
           </div>
           <div style={{ flex: 1, minWidth: 140 }}>
             <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>SPIELER</label>
-            <NeonSelect value={newTaskPlayerId} onChange={setNewTaskPlayerId} options={[{ value: "", label: "Spieler wählen…" }, ...playerOptions]} />
+            <NeonSelect
+              value={newTaskPlayerId}
+              onChange={setNewTaskPlayerId}
+              options={[{ value: "", label: "Spieler wählen…" }, ...playerOptions]}
+            />
+          </div>
+          <div style={{ flex: 1, minWidth: 140 }}>
+            <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>ROLLE</label>
+            <NeonSelect
+              value={newTaskRole}
+              onChange={setNewTaskRole}
+              options={[{ value: "", label: "Rolle wählen…" }, ...availableRoles]}
+            />
           </div>
           <NeonButton
             variant="secondary"
-            disabled={busy || !newTaskLabel.trim() || !newTaskPlayerId}
-            onClick={() => {
-              act("/admin/soulmask/tasks", { playerId: newTaskPlayerId, label: newTaskLabel.trim(), role: "Builder" }).then(() => { setNewTaskLabel(""); setNewTaskPlayerId(""); });
+            disabled={
+              busy ||
+              !newTaskLabel.trim() ||
+              !newTaskPlayerId ||
+              !newTaskRole
+            }
+            onClick={async () => {
+              const label = newTaskLabel.trim();
+              if (!label || label.length > 100 || !newTaskPlayerId || !newTaskRole) {
+                setTaskLabelError("Alle Felder erforderlich");
+                return;
+              }
+              await act("/admin/soulmask/tasks", {
+                playerId: newTaskPlayerId,
+                label,
+                role: newTaskRole,
+              });
+              setNewTaskLabel("");
+              setNewTaskPlayerId("");
+              setNewTaskRole("");
+              setTaskLabelError("");
             }}
           >
             + Task
@@ -173,6 +219,27 @@ export function Soulmask({ state, reload }: Props) {
                 </span>
                 {assignee && <Badge variant="muted">{assignee.name}</Badge>}
                 <span style={{ fontSize: 11, color: "var(--muted)" }}>{t.role}</span>
+                <button
+                  onClick={() => {
+                    if (confirm(`Task "${t.label}" löschen?`)) {
+                      act(`/admin/soulmask/tasks/${t.id}`, {});
+                    }
+                  }}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    border: "1px solid var(--border)",
+                    borderRadius: 3,
+                    background: "transparent",
+                    color: "#ff2d6b",
+                    cursor: "pointer",
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                  title="Task löschen"
+                >
+                  ✕
+                </button>
               </div>
             );
           })}

@@ -37,6 +37,20 @@ async function main() {
   app.use("/api/player", playerRouter);
   app.use("/api/admin", adminRouter);
 
+  // ── Health-Check Endpoint ──────────────────────────────────────────────────
+  app.get("/health", (_req, res) => {
+    const { getContainer } = await import("./state.js");
+    const c = getContainer();
+    const s = c.get();
+    res.json({
+      status: "up",
+      uptime: Math.floor(process.uptime()),
+      version: s.version,
+      players: s.players.length,
+      matches: s.matches.length,
+    });
+  });
+
   // ── Client-Bundles (Vite Build-Output) ───────────────────────────────────
   // Liegt nach `pnpm -r build` unter packages/client/dist/
   // __dirname = packages/server/dist → ../../client/dist = packages/client/dist

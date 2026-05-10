@@ -1339,3 +1339,41 @@ adminRouter.post("/tournament/bracket/:bracketId/match/:matchId/delete", async (
     handleErr(res, err);
   }
 });
+
+adminRouter.get("/leaderboard/export", (req, res) => {
+  try {
+    const c = getContainer();
+    const s = c.get();
+    const format = (req.query.format as string) ?? "json";
+
+    const leaderboard = s.leaderboard.top.map((pid, idx) => {
+      const p = s.players.find((pl) => pl.id === pid);
+      return {
+        rank: idx + 1,
+        name: p?.name ?? "Unknown",
+        points: p?.points ?? 0,
+        streak: p?.streak?.current ?? 0,
+        role: p?.role ?? "N/A",
+      };
+    });
+
+    if (format === "csv") {
+      const csv = ["Rank,Name,Points,Streak,Role"];
+      csv.push(
+        ...leaderboard.map(
+          (l) => `${l.rank},"${l.name}",${l.points},${l.streak},"${l.role}"`
+        )
+      );
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="leaderboard-${Date.now()}.csv"`
+      );
+      res.send(csv.join("\n"));
+    } else {
+      res.json(leaderboard);
+    }
+  } catch (err) {
+    handleErr(res, err);
+  }
+});

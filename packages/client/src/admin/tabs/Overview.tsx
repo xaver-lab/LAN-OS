@@ -135,6 +135,44 @@ export function Overview({ state, reload }: Props) {
           </div>
         </div>
       </Card>
+
+      {/* Export */}
+      <Card title="Export" style={{ gridColumn: "1 / -1" }}>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <NeonButton
+            onClick={() => {
+              window.location.href = "/api/admin/leaderboard/export?format=csv";
+            }}
+          >
+            📥 Leaderboard CSV
+          </NeonButton>
+          <NeonButton
+            variant="secondary"
+            onClick={() => {
+              const data = state.leaderboard.top.map((pid, idx) => {
+                const p = state.players.find((pl) => pl.id === pid);
+                return {
+                  rank: idx + 1,
+                  name: p?.name ?? "Unknown",
+                  points: p?.points ?? 0,
+                  streak: p?.streak?.current ?? 0,
+                };
+              });
+              const blob = new Blob([JSON.stringify(data, null, 2)], {
+                type: "application/json",
+              });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `leaderboard-${Date.now()}.json`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            📥 Leaderboard JSON
+          </NeonButton>
+        </div>
+      </Card>
     </div>
   );
 }

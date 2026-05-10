@@ -47,6 +47,11 @@ import {
   writeCheckpoint,
 } from "../persistence.js";
 import { getContainer, makeFreshSimState } from "../state.js";
+import { generateBracketFromState } from "../bracket-planner.js";
+import {
+  generateScoringRules,
+  type GenerateScoringRulesInput,
+} from "../scoring-rules.js";
 
 export const adminRouter = Router();
 
@@ -1028,79 +1033,101 @@ adminRouter.get("/system/info", (_req, res) => {
   });
 });
 
+/* ───────────── Scoring Rules Generator ───────────── */
+
+adminRouter.post("/matches/:matchId/scoring/generate", async (req, res) => {
+  try {
+    const c = getContainer();
+    const matchId = req.params["matchId"]!;
+    const input: GenerateScoringRulesInput = req.body ?? {};
+
+    const s = c.get();
+    const match = s.matches.find((m) => m.id === matchId);
+
+    if (!match) {
+      res.status(404).json({ error: "Match not found" });
+      return;
+    }
+
+    const game = s.games.find((g) => g.id === match.gameId);
+
+    if (!game) {
+      res.status(404).json({ error: "Game not found" });
+      return;
+    }
+
+    // Generate scoring rules basierend auf Game-Tag
+    const generatedRules = generateScoringRules({
+      gameTag: game.tag,
+      gameTitle: game.title,
+      playerMode: match.type,
+      avgDurationMin: game.avgDurationMin,
+      complexity: game.complexity,
+      modifiers: match.activeModifiers,
+    });
+
+    // Update Match mit generierten Scoring Rules
+    await c.mutate(
+      (s) => ({
+        ...s,
+        matches: s.matches.map((m) =>
+          m.id === matchId
+            ? {
+                ...m,
+                scoringRules: generatedRules.scoringRules,
+              }
+            : m
+        ),
+      }),
+      {
+        log: {
+          type: "admin-action",
+          payload: {
+            actionType: "scoring-rules-generate",
+            matchId,
+            gameTag: game.tag,
+            modifierMultiplier: generatedRules.modifierMultiplier,
+          },
+        },
+      }
+    );
+
+    res.json({
+      ok: true,
+      scoringRules: generatedRules.scoringRules,
+      balanceNotes: generatedRules.balanceNotes,
+      modifierMultiplier: generatedRules.modifierMultiplier,
+    });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
 /* ───────────── Tournament Bracket ───────────── */
 
 adminRouter.post("/tournament/bracket/generate", async (req, res) => {
   try {
     const c = getContainer();
-    const { timeBudgetMin, difficultyFilter } = req.body ?? {};
+    const { timeBudgetMin = 120, difficultyFilter = "all" } = req.body ?? {};
 
+    // Validiere Input
+    if (!timeBudgetMin || timeBudgetMin < 30) {
+      res.status(400).json({ error: "Time budget must be at least 30 minutes" });
+      return;
+    }
+
+    // Generiere Bracket mit Agent-Logik
+    const generationResult = generateBracketFromState(c.get(), {
+      timeBudgetMin,
+      difficultyFilter,
+    });
+
+    // Speichere im State
     await c.mutate(
-      (s) => {
-        const activePlayers = s.players.filter(
-          (p) => p.role === "Spieler" && p.activeTracks.includes("TOURNAMENT")
-        );
-
-        if (activePlayers.length < 2) {
-          throw new Error("At least 2 active players required for bracket generation");
-        }
-
-        // Simple balanced bracket generation
-        const rounds: import("@lan-os/shared").BracketRound[] = [];
-        const availableGames = s.games.filter((g) => g.inActivePool);
-
-        if (availableGames.length === 0) {
-          throw new Error("No games available for bracket");
-        }
-
-        // Create first round: pair all active players
-        const players = [...activePlayers];
-        const matches: import("@lan-os/shared").BracketMatch[] = [];
-
-        for (let i = 0; i < players.length - 1; i += 2) {
-          const playerA = players[i];
-          const playerB = players[i + 1];
-          const gameId = availableGames[i % availableGames.length].id;
-
-          matches.push({
-            id: `match_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
-            playerA: playerA.id,
-            playerB: playerB.id,
-            gameId,
-            status: "pending" as const,
-            matchId: null,
-          });
-        }
-
-        // Handle odd player out
-        if (players.length % 2 === 1) {
-          const lastPlayer = players[players.length - 1];
-          matches.push({
-            id: `match_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
-            playerA: lastPlayer.id,
-            playerB: lastPlayer.id, // Bye match
-            gameId: availableGames[0].id,
-            status: "pending" as const,
-            matchId: null,
-          });
-        }
-
-        rounds.push({ roundNum: 1, matches });
-
-        const bracket: import("@lan-os/shared").TournamentBracket = {
-          id: `bracket_${Date.now()}`,
-          createdAt: Date.now(),
-          createdBy: "admin",
-          rounds,
-          status: "draft" as const,
-          rationale: `Auto-generated with ${timeBudgetMin}min budget, filter: ${difficultyFilter}`,
-        };
-
-        return {
-          ...s,
-          tournament: bracket,
-        };
-      },
+      (s) => ({
+        ...s,
+        tournament: generationResult.bracket,
+      }),
       {
         log: {
           type: "admin-action",
@@ -1108,11 +1135,27 @@ adminRouter.post("/tournament/bracket/generate", async (req, res) => {
             actionType: "bracket-generate",
             timeBudgetMin,
             difficultyFilter,
+            scores: {
+              balance: generationResult.balanceScore,
+              entertainment: generationResult.entertainmentScore,
+              overall: generationResult.overallScore,
+            },
           },
         },
       }
     );
-    res.json({ ok: true });
+
+    res.json({
+      ok: true,
+      bracket: generationResult.bracket,
+      scores: {
+        balance: generationResult.balanceScore,
+        entertainment: generationResult.entertainmentScore,
+        overall: generationResult.overallScore,
+      },
+      estimatedDurationMin: generationResult.estimatedDurationMin,
+      rationale: generationResult.strategyRationale,
+    });
   } catch (err) {
     handleErr(res, err);
   }

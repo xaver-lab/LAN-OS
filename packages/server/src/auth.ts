@@ -110,6 +110,25 @@ export function reconnectByToken(
   return { state: { ...state, players }, player: updated };
 }
 
+/** §11.2b Reconnect-by-name — Spieler mit Namen verbinden sich erneut. */
+export function reconnectByName(
+  state: SystemState,
+  name: string,
+  now: number,
+): LoginResult {
+  const trimmed = name.trim();
+  if (!trimmed) throw new AuthError("Name darf nicht leer sein.");
+  const player = state.players.find(
+    (p) => p.name.toLowerCase() === trimmed.toLowerCase(),
+  );
+  if (!player) throw new AuthError("Spieler nicht gefunden.");
+  const updated: Player = { ...player, lastSeen: now, online: true };
+  const players = state.players.map((p) =>
+    p.id === player.id ? updated : p,
+  );
+  return { state: { ...state, players }, player: updated };
+}
+
 /** Admin: erstellt Player ohne Token (manuelles Hinzufügen). */
 export function manualAddPlayer(
   state: SystemState,

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { login, reconnect } from "../api/client.js";
-import { NeonButton, NeonInput, Card } from "../design/components/index.js";
+import { NeonButton, NeonInput, Card, ColorPicker } from "../design/components/index.js";
 import type { Session } from "../api/useSession.js";
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
 
 export function Login({ onLogin }: Props) {
   const [name, setName] = useState("");
-  const [colorWish, setColorWish] = useState("");
-  const [token, setToken] = useState("");
+  const [colorWish, setColorWish] = useState("#39ff6e");
+  const [reconnectName, setReconnectName] = useState("");
   const [mode, setMode] = useState<"login" | "reconnect">("login");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -32,12 +32,12 @@ export function Login({ onLogin }: Props) {
   }
 
   async function handleReconnect() {
-    if (!token.trim()) { setError("Token darf nicht leer sein."); return; }
+    if (!reconnectName.trim()) { setError("Name darf nicht leer sein."); return; }
     setBusy(true);
     setError("");
     try {
-      const result = await reconnect(token.trim());
-      onLogin({ token: result.sessionToken, playerId: result.playerId, playerName: "" });
+      const result = await reconnect(reconnectName.trim());
+      onLogin({ token: result.sessionToken, playerId: result.playerId, playerName: result.playerName || reconnectName.trim() });
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -119,7 +119,7 @@ export function Login({ onLogin }: Props) {
                 <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 4 }}>
                   WUNSCHFARBE (opt.)
                 </label>
-                <NeonInput value={colorWish} onChange={setColorWish} placeholder="#39ff6e" />
+                <ColorPicker value={colorWish} onChange={setColorWish} />
               </div>
               {error && (
                 <div style={{ color: "var(--magenta)", fontSize: 13, padding: "6px 10px", background: "#ff2d6b18", borderRadius: 4 }}>
@@ -139,9 +139,9 @@ export function Login({ onLogin }: Props) {
             <div style={{ display: "grid", gap: 12 }}>
               <div>
                 <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 4 }}>
-                  SESSION TOKEN
+                  NAME
                 </label>
-                <NeonInput value={token} onChange={setToken} placeholder="Token aus vorheriger Sitzung" />
+                <NeonInput value={reconnectName} onChange={setReconnectName} placeholder="Dein Name aus vorheriger Sitzung" />
               </div>
               {error && (
                 <div style={{ color: "var(--magenta)", fontSize: 13, padding: "6px 10px", background: "#ff2d6b18", borderRadius: 4 }}>

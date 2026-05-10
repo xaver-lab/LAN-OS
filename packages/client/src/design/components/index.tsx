@@ -573,3 +573,142 @@ export function SimulationBanner() {
     </div>
   );
 }
+
+// ── ColorPicker ───────────────────────────────────────────────────────────
+const NEON_COLOR_PALETTE: Array<{ hex: string; name: string }> = [
+  { hex: "#39ff6e", name: "Neon Grün" },
+  { hex: "#00e5ff", name: "Neon Cyan" },
+  { hex: "#ff2d6b", name: "Neon Magenta" },
+  { hex: "#ffb830", name: "Neon Amber" },
+  { hex: "#b040ff", name: "Neon Violett" },
+  { hex: "#ff6b2b", name: "Neon Orange" },
+  { hex: "#00ffcc", name: "Neon Türkis" },
+  { hex: "#fff700", name: "Neon Gelb" },
+  { hex: "#ff4655", name: "Neon Rot" },
+  { hex: "#00aaff", name: "Neon Blau" },
+  { hex: "#78c832", name: "Neon Lime" },
+  { hex: "#3ad6c8", name: "Neon Aqua" },
+];
+
+export function ColorPicker({
+  value,
+  onChange,
+  style,
+}: {
+  value: string;
+  onChange: (color: string) => void;
+  style?: CSSProperties;
+}) {
+  const [open, setOpen] = useState(false);
+  const selectedColor = NEON_COLOR_PALETTE.find(
+    (c) => c.hex.toLowerCase() === value.toLowerCase()
+  );
+
+  return (
+    <div style={{ position: "relative", ...style }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 12px",
+          background: "var(--bg3)",
+          border: open ? "1px solid var(--neon)" : "1px solid var(--border)",
+          borderRadius: 4,
+          color: "var(--text)",
+          fontFamily: "'Rajdhani', sans-serif",
+          fontSize: 15,
+          cursor: "pointer",
+          transition: "all 0.15s",
+          boxShadow: open ? "0 0 8px var(--neon-dim)" : "none",
+        }}
+      >
+        <span
+          style={{
+            width: 18,
+            height: 18,
+            borderRadius: 3,
+            background: value || "var(--muted)",
+            boxShadow: value ? `0 0 8px ${value}` : "none",
+            flexShrink: 0,
+          }}
+        />
+        <span style={{ flex: 1, textAlign: "left", fontSize: 14 }}>
+          {selectedColor?.name || value || "Farbe wählen…"}
+        </span>
+        <span style={{ color: "var(--muted)", fontSize: 12 }}>
+          {open ? "▲" : "▼"}
+        </span>
+      </button>
+
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            marginTop: 4,
+            background: "var(--bg2)",
+            border: "1px solid var(--neon)",
+            borderRadius: 4,
+            padding: 8,
+            zIndex: 1000,
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 6,
+            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+          }}
+        >
+          {NEON_COLOR_PALETTE.map((color) => (
+            <button
+              key={color.hex}
+              onClick={() => {
+                onChange(color.hex);
+                setOpen(false);
+              }}
+              title={color.name}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 6,
+                padding: 6,
+                background:
+                  color.hex.toLowerCase() === value.toLowerCase()
+                    ? `${color.hex}33`
+                    : "var(--bg3)",
+                border:
+                  color.hex.toLowerCase() === value.toLowerCase()
+                    ? `2px solid ${color.hex}`
+                    : "1px solid var(--border)",
+                borderRadius: 4,
+                cursor: "pointer",
+                transition: "all 0.15s",
+                minHeight: 32,
+                fontSize: 11,
+                color: "var(--text)",
+              }}
+            >
+              <span
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 2,
+                  background: color.hex,
+                  boxShadow: `0 0 6px ${color.hex}`,
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ textAlign: "center", fontSize: 10 }}>
+                {color.name.split(" ")[1]}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

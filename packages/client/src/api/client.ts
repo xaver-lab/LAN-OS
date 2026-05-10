@@ -95,8 +95,8 @@ export function login(name: string, colorWish?: string) {
   });
 }
 
-export function reconnect(token: string) {
-  return post<{ sessionToken: string; playerId: string }>("/auth/reconnect", { token });
+export function reconnect(name: string) {
+  return post<{ sessionToken: string; playerId: string; playerName?: string }>("/auth/reconnect", { name });
 }
 
 // Player actions

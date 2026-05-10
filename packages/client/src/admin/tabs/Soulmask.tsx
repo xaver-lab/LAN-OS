@@ -9,6 +9,7 @@ import {
   NeonSelect,
   Badge,
   NeonBar,
+  ColorPicker,
 } from "../../design/components/index.js";
 import { post } from "../../api/client.js";
 
@@ -33,7 +34,7 @@ export function Soulmask({ state, reload }: Props) {
   async function act(path: string, body?: unknown) {
     setBusy(true);
     try { await post(path, body); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
@@ -112,9 +113,9 @@ export function Soulmask({ state, reload }: Props) {
             <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>LABEL</label>
             <NeonInput value={newRoleLabel} onChange={setNewRoleLabel} placeholder="Rolle…" />
           </div>
-          <div style={{ width: 110 }}>
+          <div style={{ width: 150 }}>
             <label style={{ fontSize: 11, color: "var(--muted)", display: "block", marginBottom: 3 }}>FARBE</label>
-            <NeonInput value={newRoleColor} onChange={setNewRoleColor} placeholder="#hex" />
+            <ColorPicker value={newRoleColor} onChange={setNewRoleColor} />
           </div>
           <NeonButton
             variant="secondary"

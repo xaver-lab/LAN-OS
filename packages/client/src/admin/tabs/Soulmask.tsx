@@ -148,11 +148,12 @@ export function Soulmask({ state, reload }: Props) {
             <NeonInput
               value={newTaskLabel}
               onChange={(v) => {
-                setNewTaskLabel(v);
-                if (taskLabelError) setTaskLabelError("");
+                if (v.length <= 100) {
+                  setNewTaskLabel(v);
+                  if (taskLabelError) setTaskLabelError("");
+                }
               }}
               placeholder="Was muss getan werden…"
-              maxLength={100}
               style={{ borderColor: taskLabelError ? "#ff2d6b" : undefined }}
             />
             {taskLabelError && (

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 9,
   "schemaVersion": "3.0",
   "activeTracks": [
     "TOURNAMENT"
@@ -405,6 +405,28 @@
       "type": "admin-action",
       "payload": {
         "actionType": "voting-end"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778418750193_335",
+      "timestamp": 1778418750193,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_6",
+        "inActivePool": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778418750737_970",
+      "timestamp": 1778418750737,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_6",
+        "inActivePool": false
       },
       "actorId": null
     }

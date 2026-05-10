@@ -9,13 +9,15 @@ import { Tabs, ConnectionBanner, SimulationBanner, Spinner } from "../design/com
 import { VotingTab }     from "./tabs/Voting.js";
 import { MatchResultTab } from "./tabs/MatchResult.js";
 import { TasksTab }       from "./tabs/Tasks.js";
+import { SoulmaskTab }    from "./tabs/Soulmask.js";
 import { StatusTab }      from "./tabs/Status.js";
 
 const PLAYER_TABS = [
-  { id: "voting",       label: "Voting",   icon: "◎" },
-  { id: "match-result", label: "Match",    icon: "⚔" },
-  { id: "tasks",        label: "Tasks",    icon: "☑" },
-  { id: "status",       label: "Status",   icon: "★" },
+  { id: "voting",   label: "Voting",   icon: "◎" },
+  { id: "match",    label: "Match",    icon: "⚔" },
+  { id: "soulmask", label: "Soulmask", icon: "🧬" },
+  { id: "tasks",    label: "Tasks",    icon: "☑" },
+  { id: "status",   label: "Status",   icon: "★" },
 ];
 
 export function App() {
@@ -123,10 +125,11 @@ export function App() {
           </div>
         ) : (
           <>
-            {activeTab === "voting"       && <VotingTab state={state} playerId={session.playerId} reload={reload} />}
-            {activeTab === "match-result" && <MatchResultTab state={state} playerId={session.playerId} reload={reload} />}
-            {activeTab === "tasks"        && <TasksTab state={state} playerId={session.playerId} reload={reload} />}
-            {activeTab === "status"       && <StatusTab state={state} playerId={session.playerId} />}
+            {activeTab === "voting"   && <VotingTab state={state} playerId={session.playerId} reload={reload} />}
+            {activeTab === "match"    && <MatchResultTab state={state} playerId={session.playerId} reload={reload} />}
+            {activeTab === "soulmask" && <SoulmaskTab state={state} playerId={session.playerId} reload={reload} />}
+            {activeTab === "tasks"    && <TasksTab state={state} playerId={session.playerId} reload={reload} />}
+            {activeTab === "status"   && <StatusTab state={state} playerId={session.playerId} />}
           </>
         )}
       </div>

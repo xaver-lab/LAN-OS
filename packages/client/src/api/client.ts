@@ -132,6 +132,10 @@ export function toggleTask(taskId: string, done: boolean) {
   return post<{ ok: boolean }>(`/player/task/${taskId}`, { done });
 }
 
+export function setSoulmaskRole(roleId: string) {
+  return post<{ ok: boolean }>("/player/soulmask/role", { roleId });
+}
+
 // Admin Bracket API
 export function generateBracket(
   timeBudgetMin: number,

@@ -8,7 +8,7 @@ import { submitVote } from "../../api/client.js";
 interface Props {
   state: SystemState;
   playerId: string;
-  reload: () => void;
+  reload: () => Promise<void>;
 }
 
 export function VotingTab({ state, playerId, reload }: Props) {
@@ -46,6 +46,16 @@ export function VotingTab({ state, playerId, reload }: Props) {
 
   async function handleVote() {
     if (selected.length === 0) return;
+
+    // Pre-flight: Abstimmung lokal prüfen bevor der API-Call gesendet wird.
+    // Verhindert den "VOTING-State erforderlich" Fehler wenn der State
+    // zwischen UI-Render und Klick gewechselt hat (Race Condition).
+    if (state.tournamentState !== "VOTING" || !state.votingSession) {
+      await reload();
+      alert("Die Abstimmung wurde bereits beendet. Die Seite wurde aktualisiert.");
+      return;
+    }
+
     setBusy(true);
     try {
       await submitVote(selected);
@@ -53,7 +63,17 @@ export function VotingTab({ state, playerId, reload }: Props) {
       setSelected([]);
       reload();
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      const msg = e instanceof Error ? e.message : String(e);
+      // "VOTING-State erforderlich" bedeutet: Abstimmung wurde serverseitig
+      // bereits beendet während der Request unterwegs war.
+      const isVotingEnded =
+        msg.includes("VOTING-State") || msg.includes("VOTING_STATE");
+      await reload();
+      if (isVotingEnded) {
+        alert("Die Abstimmung wurde beendet bevor dein Vote ankam. Bitte warte auf die nächste Runde.");
+      } else {
+        alert(msg);
+      }
     } finally {
       setBusy(false);
     }

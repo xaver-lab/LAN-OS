@@ -22,7 +22,12 @@ function headers(extra: Record<string, string> = {}): HeadersInit {
 
 async function parseResponse<T>(res: Response): Promise<T> {
   const json = await res.json().catch(() => ({ error: "Ungültige Server-Antwort" }));
-  if (!res.ok) throw new Error(json?.error ?? `HTTP ${res.status}`);
+  if (!res.ok) {
+    // Spezial-Behandlung für 401: enthält den Status im Error-Prefix
+    const errorMsg = json?.error ?? `HTTP ${res.status}`;
+    const errorWithStatus = `${errorMsg} (HTTP ${res.status})`;
+    throw new Error(errorWithStatus);
+  }
   return json as T;
 }
 
@@ -102,8 +107,8 @@ export function login(
   });
 }
 
-export function reconnect(token: string) {
-  return post<{ sessionToken: string; playerId: string }>("/auth/reconnect", { token });
+export function reconnect(name: string) {
+  return post<{ sessionToken: string; playerId: string; playerName?: string }>("/auth/reconnect", { name });
 }
 
 // Player actions

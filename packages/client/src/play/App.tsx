@@ -23,6 +23,7 @@ const PLAYER_TABS = [
 export function App() {
   const { session, saveSession, clearSession } = useSession();
   const [activeTab, setActiveTab] = useState("voting");
+  const [kickedMessage, setKickedMessage] = useState<string | null>(null);
 
   const fetchFn = useCallback(
     (since?: number) => {
@@ -32,11 +33,45 @@ export function App() {
     [session],
   );
 
+  const handleAuthError = useCallback(() => {
+    // Spieler wurde gekickt oder Token ist ungültig
+    setKickedMessage("Du wurdest gekickt. Bitte melde dich neu an.");
+    clearSession();
+  }, [clearSession]);
+
   const { state, connectionError, reload } = usePollingState({
     fetchFn,
     intervalMs: 2000,
     enabled: !!session,
+    onAuthError: handleAuthError,
   });
+
+  if (kickedMessage) {
+    return (
+      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, padding: 16 }}>
+        <div style={{ fontSize: 18, color: "var(--magenta)", fontWeight: "bold", textAlign: "center", maxWidth: 400 }}>
+          {kickedMessage}
+        </div>
+        <button
+          onClick={() => {
+            setKickedMessage(null);
+          }}
+          style={{
+            background: "var(--neon)",
+            color: "var(--bg)",
+            border: "none",
+            borderRadius: 4,
+            padding: "8px 16px",
+            cursor: "pointer",
+            fontFamily: "'JetBrains Mono', monospace",
+            fontWeight: "bold",
+          }}
+        >
+          Zurück zum Login
+        </button>
+      </div>
+    );
+  }
 
   if (!session) {
     return <Login onLogin={saveSession} />;

@@ -18,10 +18,11 @@ interface Props {
 }
 
 interface CheckpointMeta {
-  id: string;
+  filename: string;
   label: string;
   createdAt: number;
-  version: number;
+  stateVersion: number;
+  trigger: string;
 }
 
 export function System({ state, reload }: Props) {
@@ -41,14 +42,14 @@ export function System({ state, reload }: Props) {
   async function loadCheckpoints() {
     try {
       const data = await get<{ checkpoints: CheckpointMeta[] }>("/admin/system/checkpoints");
-      setCheckpoints(data.checkpoints);
+      setCheckpoints(data.checkpoints ?? []);
     } catch { /* silent */ }
   }
 
   async function act(path: string, body?: unknown) {
     setBusy(true);
     try { await post(path, body); reload(); }
-    catch (e) { alert(e instanceof Error ? e.message : String(e)); }
+    catch (e) { await reload(); alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
@@ -62,20 +63,20 @@ export function System({ state, reload }: Props) {
     finally { setBusy(false); }
   }
 
-  async function restoreCheckpoint(id: string) {
+  async function restoreCheckpoint(filename: string) {
     setBusy(true);
     try {
-      await post(`/admin/system/checkpoint/${id}/restore`);
+      await post("/admin/system/restore", { filename });
       reload();
       setRestoreTarget(null);
     } catch (e) { alert(e instanceof Error ? e.message : String(e)); }
     finally { setBusy(false); }
   }
 
-  async function deleteCheckpoint(id: string) {
+  async function deleteCheckpoint(filename: string) {
     setBusy(true);
     try {
-      await del(`/admin/system/checkpoint/${id}`);
+      await del(`/admin/system/checkpoints/${filename}`);
       await loadCheckpoints();
       setDeleteTarget(null);
     } catch (e) { alert(e instanceof Error ? e.message : String(e)); }
@@ -157,11 +158,11 @@ export function System({ state, reload }: Props) {
             <span style={{ color: "var(--muted)", fontSize: 13 }}>Keine Checkpoints vorhanden.</span>
           )}
           {checkpoints.map((cp) => (
-            <div key={cp.id} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 5 }}>
+            <div key={cp.filename} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 5 }}>
               <div style={{ flex: 1 }}>
                 <span style={{ fontWeight: 600, fontSize: 13 }}>{cp.label}</span>
                 <span style={{ color: "var(--muted)", fontSize: 12, marginLeft: 8 }}>
-                  {new Date(cp.createdAt).toLocaleString()} — v{cp.version}
+                  {new Date(cp.createdAt).toLocaleString()} — v{cp.stateVersion}
                 </span>
               </div>
               <NeonButton variant="secondary" onClick={() => setRestoreTarget(cp)} disabled={busy} style={{ fontSize: 12, padding: "3px 10px" }}>
@@ -226,7 +227,7 @@ export function System({ state, reload }: Props) {
         title={`Checkpoint "${restoreTarget?.label}" wiederherstellen?`}
         message="Der aktuelle State wird durch diesen Checkpoint ersetzt. Nicht gespeicherte Änderungen gehen verloren."
         confirmLabel="Wiederherstellen"
-        onConfirm={() => restoreTarget && restoreCheckpoint(restoreTarget.id)}
+        onConfirm={() => restoreTarget && restoreCheckpoint(restoreTarget.filename)}
         onCancel={() => setRestoreTarget(null)}
       />
       <ConfirmDialog
@@ -235,7 +236,7 @@ export function System({ state, reload }: Props) {
         message="Der Checkpoint wird permanent gelöscht."
         confirmLabel="Löschen"
         dangerous
-        onConfirm={() => deleteTarget && deleteCheckpoint(deleteTarget.id)}
+        onConfirm={() => deleteTarget && deleteCheckpoint(deleteTarget.filename)}
         onCancel={() => setDeleteTarget(null)}
       />
     </div>

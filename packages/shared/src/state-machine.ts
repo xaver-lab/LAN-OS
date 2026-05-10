@@ -890,3 +890,44 @@ export function removeGlobalGoal(
   );
   return next;
 }
+
+/* ────────────────────────────── Player Deletion ────────────────────────────── */
+
+/**
+ * Löscht einen Spieler vollständig aus dem System:
+ * - Entfernt ihn aus der Spielerliste
+ * - Markiert alle Matches, an denen er teilgenommen hat, mit noticedPlayerDeletion
+ * - Entfernt ihn aus Soulmask-Rollen
+ */
+export function deletePlayer(
+  state: SystemState,
+  playerId: string,
+): SystemState {
+  const next = clone(state);
+
+  // Spieler aus Liste entfernen
+  next.players = next.players.filter((p) => p.id !== playerId);
+
+  // Alle Matches, an denen dieser Spieler beteiligt war, als "player deleted" markieren
+  next.matches = next.matches.map((m) => {
+    const isInTeamA = m.teamA.includes(playerId);
+    const isInTeamB = m.teamB.includes(playerId);
+
+    if (isInTeamA || isInTeamB) {
+      return { ...m, noticedPlayerDeletion: true };
+    }
+    return m;
+  });
+
+  // Entferne Spieler aus Soulmask-Rollen
+  const updatedRoles = { ...next.soulmaskData.activeRoles };
+  delete updatedRoles[playerId];
+  next.soulmaskData.activeRoles = updatedRoles;
+
+  // Entferne Spieler aus Soulmask-Tasks
+  next.soulmaskData.tasks = next.soulmaskData.tasks.filter(
+    (t) => t.playerId !== playerId,
+  );
+
+  return next;
+}

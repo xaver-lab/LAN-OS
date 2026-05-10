@@ -2,77 +2,27 @@
 
 import React, { useState } from "react";
 import { login, reconnect } from "../api/client.js";
-import { NeonButton, NeonInput, NeonSelect, Card } from "../design/components/index.js";
+import { NeonButton, NeonInput, Card, ColorPicker } from "../design/components/index.js";
 import type { Session } from "../api/useSession.js";
-import type { PlayerRole, Track } from "@lan-os/shared";
 
 interface Props {
   onLogin: (session: Session) => void;
 }
 
-// 6 vordefinierte Arcade-Farben aus Design-System
-const PRESET_COLORS = [
-  "#39ff6e", // neon (grün)
-  "#00e5ff", // cyan
-  "#ff2d6b", // magenta
-  "#ffb830", // amber
-  "#f72fff", // synthwave pink
-  "#80ffea", // arctic cyan
-];
-
-// Helper: Validiere Namen (min 2 Zeichen, nur alphanumeric + spaces)
-function validateName(name: string): { valid: boolean; error?: string } {
-  const trimmed = name.trim();
-  if (!trimmed) return { valid: false, error: "Name darf nicht leer sein." };
-  if (trimmed.length < 2) return { valid: false, error: "Name muss mindestens 2 Zeichen lang sein." };
-  if (!/^[a-zA-Z0-9\s\-äöüß]+$/i.test(trimmed)) {
-    return { valid: false, error: "Name: nur Buchstaben, Zahlen, Bindestriche und Umlaute erlaubt." };
-  }
-  return { valid: true };
-}
-
-// Helper: Validiere Hex-Farbe
-function validateHexColor(hex: string): { valid: boolean; color: string } {
-  const trimmed = hex.trim();
-  if (!trimmed) return { valid: true, color: "" };
-  if (!/^#[0-9a-fA-F]{6}$/.test(trimmed)) {
-    return { valid: false, color: "" };
-  }
-  return { valid: true, color: trimmed };
-}
-
 export function Login({ onLogin }: Props) {
   const [name, setName] = useState("");
-  const [presetColor, setPresetColor] = useState<string>("");
-  const [customColor, setCustomColor] = useState("");
-  const [role, setRole] = useState<PlayerRole>("Spieler");
-  const [activeTracks, setActiveTracks] = useState<Track[]>(["TOURNAMENT"]);
-  const [token, setToken] = useState("");
+  const [colorWish, setColorWish] = useState("#39ff6e");
+  const [reconnectName, setReconnectName] = useState("");
   const [mode, setMode] = useState<"login" | "reconnect">("login");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  // Ermittle finale Farbe: custom > preset > ""
-  const finalColor = customColor && validateHexColor(customColor).valid ? customColor : presetColor;
-
   async function handleLogin() {
-    // Validiere Name
-    const nameValidation = validateName(name);
-    if (!nameValidation.valid) {
-      setError(nameValidation.error ?? "Name ungültig.");
-      return;
-    }
-
-    // Validiere CustomColor falls gesetzt
-    if (customColor && !validateHexColor(customColor).valid) {
-      setError("Hex-Farbe ungültig (Format: #RRGGBB)");
-      return;
-    }
-
+    if (!name.trim()) { setError("Name darf nicht leer sein."); return; }
     setBusy(true);
     setError("");
     try {
-      const result = await login(name.trim(), finalColor || undefined, role, activeTracks);
+      const result = await login(name.trim(), colorWish || undefined);
       onLogin({ token: result.sessionToken, playerId: result.playerId, playerName: result.name });
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -82,23 +32,17 @@ export function Login({ onLogin }: Props) {
   }
 
   async function handleReconnect() {
-    if (!token.trim()) { setError("Token darf nicht leer sein."); return; }
+    if (!reconnectName.trim()) { setError("Name darf nicht leer sein."); return; }
     setBusy(true);
     setError("");
     try {
-      const result = await reconnect(token.trim());
-      onLogin({ token: result.sessionToken, playerId: result.playerId, playerName: "" });
+      const result = await reconnect(reconnectName.trim());
+      onLogin({ token: result.sessionToken, playerId: result.playerId, playerName: result.playerName || reconnectName.trim() });
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
     }
-  }
-
-  function toggleTrack(track: Track) {
-    setActiveTracks((prev) =>
-      prev.includes(track) ? prev.filter((t) => t !== track) : [...prev, track]
-    );
   }
 
   return (
@@ -112,7 +56,7 @@ export function Login({ onLogin }: Props) {
         padding: 20,
       }}
     >
-      <div style={{ width: "100%", maxWidth: 480 }}>
+      <div style={{ width: "100%", maxWidth: 420 }}>
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 32 }}>
           <div
@@ -161,151 +105,27 @@ export function Login({ onLogin }: Props) {
 
           {mode === "login" ? (
             <div style={{ display: "grid", gap: 12 }}>
-              {/* Name Input */}
               <div>
                 <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 4 }}>
-                  NAME *
+                  NAME
                 </label>
                 <NeonInput
                   value={name}
                   onChange={setName}
-                  placeholder="Dein Name (2-24 Zeichen)"
+                  placeholder="Dein Name (max. 24 Zeichen)"
                 />
               </div>
-
-              {/* Color Section */}
-              <div>
-                <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 6 }}>
-                  FARBE (opt.)
-                </label>
-
-                {/* Preset Color Picker */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginBottom: 8 }}>
-                  {PRESET_COLORS.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => {
-                        setPresetColor(color);
-                        setCustomColor("");
-                      }}
-                      style={{
-                        height: 40,
-                        background: color,
-                        border: presetColor === color && !customColor ? "2px solid var(--text)" : "1px solid var(--border)",
-                        borderRadius: 4,
-                        cursor: "pointer",
-                        boxShadow:
-                          presetColor === color && !customColor ? `0 0 8px ${color}66` : "none",
-                        transition: "all 0.15s",
-                      }}
-                      title={color}
-                    />
-                  ))}
-                </div>
-
-                {/* Custom Hex Input */}
-                <NeonInput
-                  value={customColor}
-                  onChange={(val) => {
-                    setCustomColor(val);
-                    if (validateHexColor(val).valid) setPresetColor("");
-                  }}
-                  placeholder="#RRGGBB (custom)"
-                  type="text"
-                />
-
-                {/* Color Preview */}
-                {finalColor && (
-                  <div
-                    style={{
-                      marginTop: 8,
-                      padding: 8,
-                      borderRadius: 4,
-                      background: finalColor + "22",
-                      border: `1px solid ${finalColor}`,
-                      fontSize: 11,
-                      color: "var(--text)",
-                      textAlign: "center",
-                    }}
-                  >
-                    Deine Farbe: <strong>{finalColor}</strong>
-                  </div>
-                )}
-              </div>
-
-              {/* Role Select */}
               <div>
                 <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 4 }}>
-                  ROLLE
+                  WUNSCHFARBE (opt.)
                 </label>
-                <NeonSelect
-                  value={role}
-                  onChange={(val) => setRole(val as PlayerRole)}
-                  options={[
-                    { value: "Spieler", label: "Spieler" },
-                    { value: "Zuschauer", label: "Zuschauer" },
-                    { value: "GameMaster", label: "Game Master" },
-                  ]}
-                />
+                <ColorPicker value={colorWish} onChange={setColorWish} />
               </div>
-
-              {/* Active Tracks */}
-              <div>
-                <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 6 }}>
-                  AKTIVE TRACKS
-                </label>
-                <div style={{ display: "grid", gap: 6 }}>
-                  {(["TOURNAMENT", "SOULMASK"] as const).map((track) => (
-                    <label
-                      key={track}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        padding: "8px 10px",
-                        background: "var(--bg3)",
-                        border: activeTracks.includes(track) ? "1px solid var(--neon)" : "1px solid var(--border)",
-                        borderRadius: 4,
-                        cursor: "pointer",
-                        transition: "all 0.15s",
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={activeTracks.includes(track)}
-                        onChange={() => toggleTrack(track)}
-                        style={{
-                          width: 16,
-                          height: 16,
-                          cursor: "pointer",
-                          accentColor: "var(--neon)",
-                        }}
-                      />
-                      <span style={{ fontSize: 14, color: "var(--text)" }}>
-                        {track === "TOURNAMENT" ? "Turnier" : "Soulmask"}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Error Message */}
               {error && (
-                <div
-                  style={{
-                    color: "var(--magenta)",
-                    fontSize: 13,
-                    padding: "8px 10px",
-                    background: "#ff2d6b18",
-                    border: "1px solid var(--magenta)",
-                    borderRadius: 4,
-                  }}
-                >
+                <div style={{ color: "var(--magenta)", fontSize: 13, padding: "6px 10px", background: "#ff2d6b18", borderRadius: 4 }}>
                   {error}
                 </div>
               )}
-
-              {/* Login Button */}
               <NeonButton
                 onClick={handleLogin}
                 disabled={busy}
@@ -319,9 +139,9 @@ export function Login({ onLogin }: Props) {
             <div style={{ display: "grid", gap: 12 }}>
               <div>
                 <label style={{ fontSize: 12, color: "var(--muted)", display: "block", marginBottom: 4 }}>
-                  SESSION TOKEN
+                  NAME
                 </label>
-                <NeonInput value={token} onChange={setToken} placeholder="Token aus vorheriger Sitzung" />
+                <NeonInput value={reconnectName} onChange={setReconnectName} placeholder="Dein Name aus vorheriger Sitzung" />
               </div>
               {error && (
                 <div style={{ color: "var(--magenta)", fontSize: 13, padding: "6px 10px", background: "#ff2d6b18", borderRadius: 4 }}>

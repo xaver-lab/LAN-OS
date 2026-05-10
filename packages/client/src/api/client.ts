@@ -1,6 +1,8 @@
 // HTTP-Client — alle API-Aufrufe gegen den Server.
 // Auth-Token wird automatisch als X-Session-Token Header gesendet.
 
+import type { SystemState, PlayerRole, Track } from "@lan-os/shared";
+
 const BASE = "/api";
 
 let sessionToken = "";
@@ -66,8 +68,6 @@ export async function del<T>(path: string): Promise<T> {
 
 // ── Typed API helpers ─────────────────────────────────────────────────────
 
-import type { SystemState } from "@lan-os/shared";
-
 export interface StateResponse {
   state?: SystemState;
   notModified?: boolean;
@@ -93,10 +93,17 @@ export function fetchFullState(since?: number): Promise<StateResponse> {
 }
 
 // Auth
-export function login(name: string, colorWish?: string) {
+export function login(
+  name: string,
+  colorWish?: string,
+  role?: PlayerRole,
+  activeTracks?: Track[],
+) {
   return post<{ sessionToken: string; playerId: string; name: string }>("/auth/login", {
     name,
     colorWish,
+    role,
+    activeTracks,
   });
 }
 
@@ -128,4 +135,41 @@ export function setMatchMvp(matchId: string, mvpPlayerId: string | null) {
 
 export function toggleTask(taskId: string, done: boolean) {
   return post<{ ok: boolean }>(`/player/task/${taskId}`, { done });
+}
+
+export function setSoulmaskRole(roleId: string) {
+  return post<{ ok: boolean }>("/player/soulmask/role", { roleId });
+}
+
+// Admin Bracket API
+export function generateBracket(
+  timeBudgetMin: number,
+  difficultyFilter: "all" | "casual" | "medium" | "hardcore"
+) {
+  return post<{ ok: boolean }>("/admin/tournament/bracket/generate", {
+    timeBudgetMin,
+    difficultyFilter,
+  });
+}
+
+export function getBracket() {
+  return get<{ bracket: any }>("/admin/tournament/bracket");
+}
+
+export function updateBracketMatch(
+  bracketId: string,
+  matchId: string,
+  playerA: string,
+  playerB: string,
+  gameId: string
+) {
+  return put<{ ok: boolean }>(`/admin/tournament/bracket/${bracketId}/match/${matchId}`, {
+    playerA,
+    playerB,
+    gameId,
+  });
+}
+
+export function deleteBracketMatch(bracketId: string, matchId: string) {
+  return post<{ ok: boolean }>(`/admin/tournament/bracket/${bracketId}/match/${matchId}/delete`);
 }

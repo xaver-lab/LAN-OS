@@ -7,14 +7,14 @@ export const authRouter = Router();
 authRouter.post("/login", async (req, res) => {
   try {
     const c = getContainer();
-    const { name, colorWish } = req.body ?? {};
+    const { name, colorWish, role, activeTracks } = req.body ?? {};
     const now = Date.now();
     let createdPlayerId: string | null = null;
     let createdPlayerName = "";
     let token = "";
     await c.mutate(
       (s) => {
-        const result = loginPlayer(s, { name, colorWish }, now);
+        const result = loginPlayer(s, { name, colorWish, role, activeTracks }, now);
         createdPlayerId = result.player.id;
         createdPlayerName = result.player.name;
         token = result.player.sessionToken;

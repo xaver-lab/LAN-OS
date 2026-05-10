@@ -48,6 +48,11 @@ import {
   writeCheckpoint,
 } from "../persistence.js";
 import { getContainer, makeFreshSimState } from "../state.js";
+import { generateBracketFromState } from "../bracket-planner.js";
+import {
+  generateScoringRules,
+  type GenerateScoringRulesInput,
+} from "../scoring-rules.js";
 
 export const adminRouter = Router();
 
@@ -1043,4 +1048,224 @@ adminRouter.get("/system/info", (_req, res) => {
     simulationActive: s.simulationActive,
     uptimeSec: process.uptime(),
   });
+});
+
+/* ───────────── Scoring Rules Generator ───────────── */
+
+adminRouter.post("/matches/:matchId/scoring/generate", async (req, res) => {
+  try {
+    const c = getContainer();
+    const matchId = req.params["matchId"]!;
+    const input: GenerateScoringRulesInput = req.body ?? {};
+
+    const s = c.get();
+    const match = s.matches.find((m) => m.id === matchId);
+
+    if (!match) {
+      res.status(404).json({ error: "Match not found" });
+      return;
+    }
+
+    const game = s.games.find((g) => g.id === match.gameId);
+
+    if (!game) {
+      res.status(404).json({ error: "Game not found" });
+      return;
+    }
+
+    // Generate scoring rules basierend auf Game-Tag
+    const generatedRules = generateScoringRules({
+      gameTag: game.tag,
+      gameTitle: game.title,
+      playerMode: match.type,
+      avgDurationMin: game.avgDurationMin,
+      complexity: game.complexity,
+      modifiers: match.activeModifiers,
+    });
+
+    // Update Match mit generierten Scoring Rules
+    await c.mutate(
+      (s) => ({
+        ...s,
+        matches: s.matches.map((m) =>
+          m.id === matchId
+            ? {
+                ...m,
+                scoringRules: generatedRules.scoringRules,
+              }
+            : m
+        ),
+      }),
+      {
+        log: {
+          type: "admin-action",
+          payload: {
+            actionType: "scoring-rules-generate",
+            matchId,
+            gameTag: game.tag,
+            modifierMultiplier: generatedRules.modifierMultiplier,
+          },
+        },
+      }
+    );
+
+    res.json({
+      ok: true,
+      scoringRules: generatedRules.scoringRules,
+      balanceNotes: generatedRules.balanceNotes,
+      modifierMultiplier: generatedRules.modifierMultiplier,
+    });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+/* ───────────── Tournament Bracket ───────────── */
+
+adminRouter.post("/tournament/bracket/generate", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { timeBudgetMin = 120, difficultyFilter = "all" } = req.body ?? {};
+
+    // Validiere Input
+    if (!timeBudgetMin || timeBudgetMin < 30) {
+      res.status(400).json({ error: "Time budget must be at least 30 minutes" });
+      return;
+    }
+
+    // Generiere Bracket mit Agent-Logik
+    const generationResult = generateBracketFromState(c.get(), {
+      timeBudgetMin,
+      difficultyFilter,
+    });
+
+    // Speichere im State
+    await c.mutate(
+      (s) => ({
+        ...s,
+        tournament: generationResult.bracket,
+      }),
+      {
+        log: {
+          type: "admin-action",
+          payload: {
+            actionType: "bracket-generate",
+            timeBudgetMin,
+            difficultyFilter,
+            scores: {
+              balance: generationResult.balanceScore,
+              entertainment: generationResult.entertainmentScore,
+              overall: generationResult.overallScore,
+            },
+          },
+        },
+      }
+    );
+
+    res.json({
+      ok: true,
+      bracket: generationResult.bracket,
+      scores: {
+        balance: generationResult.balanceScore,
+        entertainment: generationResult.entertainmentScore,
+        overall: generationResult.overallScore,
+      },
+      estimatedDurationMin: generationResult.estimatedDurationMin,
+      rationale: generationResult.strategyRationale,
+    });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.get("/tournament/bracket", (_req, res) => {
+  try {
+    const c = getContainer();
+    const s = c.get();
+    res.json({ bracket: s.tournament });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.put("/tournament/bracket/:bracketId/match/:matchId", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { bracketId, matchId } = req.params;
+    const { playerA, playerB, gameId } = req.body ?? {};
+
+    await c.mutate(
+      (s) => {
+        if (!s.tournament || s.tournament.id !== bracketId) {
+          throw new Error("Bracket not found");
+        }
+
+        const bracket = { ...s.tournament };
+        let found = false;
+
+        bracket.rounds = bracket.rounds.map((round) => ({
+          ...round,
+          matches: round.matches.map((match) => {
+            if (match.id === matchId) {
+              found = true;
+              return {
+                ...match,
+                playerA: playerA ?? match.playerA,
+                playerB: playerB ?? match.playerB,
+                gameId: gameId ?? match.gameId,
+              };
+            }
+            return match;
+          }),
+        }));
+
+        if (!found) {
+          throw new Error("Match not found in bracket");
+        }
+
+        return { ...s, tournament: bracket };
+      },
+      {
+        log: {
+          type: "admin-action",
+          payload: { actionType: "bracket-edit-match", matchId, playerA, playerB, gameId },
+        },
+      }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
+});
+
+adminRouter.post("/tournament/bracket/:bracketId/match/:matchId/delete", async (req, res) => {
+  try {
+    const c = getContainer();
+    const { bracketId, matchId } = req.params;
+
+    await c.mutate(
+      (s) => {
+        if (!s.tournament || s.tournament.id !== bracketId) {
+          throw new Error("Bracket not found");
+        }
+
+        const bracket = { ...s.tournament };
+        bracket.rounds = bracket.rounds.map((round) => ({
+          ...round,
+          matches: round.matches.filter((m) => m.id !== matchId),
+        }));
+
+        return { ...s, tournament: bracket };
+      },
+      {
+        log: {
+          type: "admin-action",
+          payload: { actionType: "bracket-delete-match", matchId },
+        },
+      }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    handleErr(res, err);
+  }
 });

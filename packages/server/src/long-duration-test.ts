@@ -2,7 +2,6 @@
 // Simulates realistic LAN-OS workload with 60-80 players voting and playing matches
 
 import { getContainer } from "./state.js";
-import { post } from "../../../packages/client/src/api/client.js";
 
 interface TestReport {
   duration_ms: number;
@@ -158,7 +157,7 @@ async function runTest(durationMs: number, playerCount: number): Promise<TestRep
 
   const report: TestReport = {
     duration_ms: totalDuration,
-    iterations,
+    iterations: iteration,
     players_simulated: playerCount,
     peak_memory_mb: peakMemory,
     checkpoints_created: checkpointCount,

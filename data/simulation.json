@@ -1,5 +1,5 @@
 {
-  "version": 32,
+  "version": 21,
   "schemaVersion": "3.0",
   "activeTracks": [
     "TOURNAMENT"
@@ -21,28 +21,7 @@
     "heartbeatTimeoutSec": 30,
     "soulmaskAllowPlayerCustomRoles": true
   },
-  "players": [
-    {
-      "id": "p_1777488611170_840432",
-      "name": "TestSpieler",
-      "color": "#39ff6e",
-      "points": 0,
-      "role": "Spieler",
-      "activeTracks": [
-        "TOURNAMENT"
-      ],
-      "online": true,
-      "lastSeen": 1777488611170,
-      "sessionToken": "b56a901926a11903dbfbf18be7e8b85cdf4aad645632ef7c",
-      "warnings": 0,
-      "playtimeSec": 0,
-      "streak": {
-        "current": 0,
-        "best": 0,
-        "lastBonusAt": 0
-      }
-    }
-  ],
+  "players": [],
   "games": [
     {
       "id": "g_1",
@@ -63,7 +42,8 @@
       "tournamentSuitability": 90,
       "chaosPotential": 30,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     },
     {
       "id": "g_2",
@@ -84,7 +64,8 @@
       "tournamentSuitability": 85,
       "chaosPotential": 50,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     },
     {
       "id": "g_3",
@@ -104,7 +85,8 @@
       "tournamentSuitability": 88,
       "chaosPotential": 25,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": true,
+      "scoringRules": []
     },
     {
       "id": "g_4",
@@ -124,7 +106,8 @@
       "tournamentSuitability": 80,
       "chaosPotential": 20,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     },
     {
       "id": "g_5",
@@ -144,7 +127,8 @@
       "tournamentSuitability": 50,
       "chaosPotential": 70,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     },
     {
       "id": "g_6",
@@ -164,7 +148,8 @@
       "tournamentSuitability": 75,
       "chaosPotential": 75,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     },
     {
       "id": "g_7",
@@ -185,7 +170,8 @@
       "tournamentSuitability": 90,
       "chaosPotential": 60,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": true,
+      "scoringRules": []
     },
     {
       "id": "g_8",
@@ -205,36 +191,12 @@
       "tournamentSuitability": 65,
       "chaosPotential": 95,
       "aiAnalyzed": true,
-      "inActivePool": true
+      "inActivePool": false,
+      "scoringRules": []
     }
   ],
-  "votingSession": {
-    "mode": "MULTI",
-    "startedAt": 1777488673158,
-    "endsAt": 1777488733158,
-    "pool": [
-      "g_1",
-      "g_2",
-      "g_3",
-      "g_4"
-    ],
-    "votes": {
-      "p_1777489094114_59f0f9": [
-        "g_4"
-      ]
-    },
-    "eliminated": [],
-    "tieBreakState": "none"
-  },
-  "spinSession": {
-    "candidates": [
-      "g_4"
-    ],
-    "winnerId": "g_4",
-    "wheelVariant": "pie",
-    "startedAt": 1777489205029,
-    "durationMs": 0
-  },
+  "votingSession": null,
+  "spinSession": null,
   "matches": [],
   "modifiers": [
     {
@@ -363,8 +325,8 @@
   },
   "eventLog": [
     {
-      "id": "e_1777488600745",
-      "timestamp": 1777488600745,
+      "id": "e_1778419713308",
+      "timestamp": 1778419713308,
       "type": "system",
       "payload": {
         "event": "BOOT",
@@ -373,97 +335,110 @@
       "actorId": null
     },
     {
-      "id": "e_1777488611170_39",
-      "timestamp": 1777488611170,
-      "type": "player-join",
-      "payload": {
-        "name": "TestSpieler"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1777488673158_623",
-      "timestamp": 1777488673158,
+      "id": "e_1778419882075_293",
+      "timestamp": 1778419882075,
       "type": "admin-action",
       "payload": {
-        "actionType": "voting-start",
-        "mode": "MULTI",
-        "pool": [
-          "g_1",
-          "g_2",
-          "g_3",
-          "g_4"
-        ],
-        "timerSec": 60
+        "actionType": "game-reanalyze",
+        "id": "g_1"
       },
       "actorId": null
     },
     {
-      "id": "e_1777489094114_749",
-      "timestamp": 1777489094114,
-      "type": "player-join",
-      "payload": {
-        "name": "Xaver"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1777489100175_524",
-      "timestamp": 1777489100175,
-      "type": "vote",
-      "payload": {
-        "playerId": "p_1777489094114_59f0f9",
-        "gameIds": [
-          "g_4"
-        ],
-        "voteMode": "MULTI"
-      },
-      "actorId": "p_1777489094114_59f0f9"
-    },
-    {
-      "id": "e_1777489163308_929",
-      "timestamp": 1777489163308,
+      "id": "e_1778419882086_349",
+      "timestamp": 1778419882086,
       "type": "admin-action",
       "payload": {
-        "actionType": "player-warn",
-        "playerId": "p_1777489094114_59f0f9"
+        "actionType": "game-reanalyze",
+        "id": "g_2"
       },
       "actorId": null
     },
     {
-      "id": "e_1777489205029_377",
-      "timestamp": 1777489205029,
+      "id": "e_1778419882093_593",
+      "timestamp": 1778419882093,
       "type": "admin-action",
       "payload": {
-        "actionType": "voting-end"
+        "actionType": "game-reanalyze",
+        "id": "g_3"
       },
       "actorId": null
     },
     {
-      "id": "e_1778418750193_335",
-      "timestamp": 1778418750193,
+      "id": "e_1778419882098_997",
+      "timestamp": 1778419882098,
       "type": "admin-action",
       "payload": {
-        "actionType": "game-pool",
-        "id": "g_6",
-        "inActivePool": true
+        "actionType": "game-reanalyze",
+        "id": "g_4"
       },
       "actorId": null
     },
     {
-      "id": "e_1778418750737_970",
-      "timestamp": 1778418750737,
+      "id": "e_1778419882104_968",
+      "timestamp": 1778419882104,
       "type": "admin-action",
       "payload": {
-        "actionType": "game-pool",
-        "id": "g_6",
-        "inActivePool": false
+        "actionType": "game-reanalyze",
+        "id": "g_5"
       },
       "actorId": null
     },
     {
-      "id": "e_1778419652820_661",
-      "timestamp": 1778419652820,
+      "id": "e_1778419882108_246",
+      "timestamp": 1778419882108,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_6"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419882112_705",
+      "timestamp": 1778419882112,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_7"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419882117_113",
+      "timestamp": 1778419882117,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-reanalyze",
+        "id": "g_8"
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419894783_563",
+      "timestamp": 1778419894783,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": true
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419895290_100",
+      "timestamp": 1778419895290,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "track-toggle",
+        "track": "SOULMASK",
+        "active": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419895808_696",
+      "timestamp": 1778419895808,
       "type": "admin-action",
       "payload": {
         "actionType": "track-toggle",
@@ -473,141 +448,52 @@
       "actorId": null
     },
     {
-      "id": "e_1778419746966_499",
-      "timestamp": 1778419746966,
-      "type": "player-join",
-      "payload": {
-        "name": "LOL"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419777430_93",
-      "timestamp": 1778419777430,
+      "id": "e_1778419896373_154",
+      "timestamp": 1778419896373,
       "type": "admin-action",
       "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_1"
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
       },
       "actorId": null
     },
     {
-      "id": "e_1778419785229_19",
-      "timestamp": 1778419785229,
+      "id": "e_1778419897118_53",
+      "timestamp": 1778419897118,
       "type": "admin-action",
       "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_7"
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": false
       },
       "actorId": null
     },
     {
-      "id": "e_1778419797878_799",
-      "timestamp": 1778419797878,
+      "id": "e_1778419897970_259",
+      "timestamp": 1778419897970,
       "type": "admin-action",
       "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_8"
+        "actionType": "track-toggle",
+        "track": "TOURNAMENT",
+        "active": true
       },
       "actorId": null
     },
     {
-      "id": "e_1778419800268_731",
-      "timestamp": 1778419800268,
+      "id": "e_1778419904226_673",
+      "timestamp": 1778419904226,
       "type": "admin-action",
       "payload": {
         "actionType": "game-pool",
-        "id": "g_4",
-        "inActivePool": false
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419800857_533",
-      "timestamp": 1778419800857,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-pool",
-        "id": "g_4",
+        "id": "g_3",
         "inActivePool": true
       },
       "actorId": null
     },
     {
-      "id": "e_1778419801385_690",
-      "timestamp": 1778419801385,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_4"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419803909_110",
-      "timestamp": 1778419803909,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_2"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419803915_122",
-      "timestamp": 1778419803915,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_3"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419803920_992",
-      "timestamp": 1778419803920,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_5"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419803925_438",
-      "timestamp": 1778419803925,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-reanalyze",
-        "id": "g_6"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419838772_67",
-      "timestamp": 1778419838772,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-pool",
-        "id": "g_5",
-        "inActivePool": true
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419839061_171",
-      "timestamp": 1778419839061,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "game-pool",
-        "id": "g_6",
-        "inActivePool": true
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419839333_58",
-      "timestamp": 1778419839333,
+      "id": "e_1778419904535_292",
+      "timestamp": 1778419904535,
       "type": "admin-action",
       "payload": {
         "actionType": "game-pool",
@@ -617,76 +503,46 @@
       "actorId": null
     },
     {
-      "id": "e_1778419839594_547",
-      "timestamp": 1778419839594,
+      "id": "e_1778419904934_797",
+      "timestamp": 1778419904934,
       "type": "admin-action",
       "payload": {
         "actionType": "game-pool",
-        "id": "g_8",
+        "id": "g_3",
+        "inActivePool": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419905197_493",
+      "timestamp": 1778419905197,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_7",
+        "inActivePool": false
+      },
+      "actorId": null
+    },
+    {
+      "id": "e_1778419906130_773",
+      "timestamp": 1778419906130,
+      "type": "admin-action",
+      "payload": {
+        "actionType": "game-pool",
+        "id": "g_7",
         "inActivePool": true
       },
       "actorId": null
     },
     {
-      "id": "e_1778419851968_903",
-      "timestamp": 1778419851968,
+      "id": "e_1778419906358_101",
+      "timestamp": 1778419906358,
       "type": "admin-action",
       "payload": {
-        "actionType": "track-toggle",
-        "track": "TOURNAMENT",
-        "active": true
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419852451_443",
-      "timestamp": 1778419852451,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "track-toggle",
-        "track": "TOURNAMENT",
-        "active": false
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419852963_5",
-      "timestamp": 1778419852963,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "track-toggle",
-        "track": "TOURNAMENT",
-        "active": true
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419860360_119",
-      "timestamp": 1778419860360,
-      "type": "admin-action",
-      "payload": {
-        "actionType": "player-warn",
-        "playerId": "p_1777489094114_59f0f9"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419863422_124",
-      "timestamp": 1778419863422,
-      "type": "player-leave",
-      "payload": {
-        "playerId": "p_1778419746966_e75634",
-        "reason": "admin-delete"
-      },
-      "actorId": null
-    },
-    {
-      "id": "e_1778419864402_478",
-      "timestamp": 1778419864402,
-      "type": "player-leave",
-      "payload": {
-        "playerId": "p_1777489094114_59f0f9",
-        "reason": "admin-delete"
+        "actionType": "game-pool",
+        "id": "g_3",
+        "inActivePool": true
       },
       "actorId": null
     }
@@ -696,5 +552,6 @@
     "tvTheme": "dark-arcade",
     "wheelVariant": "pie"
   },
-  "simulationActive": true
+  "simulationActive": false,
+  "tournament": null
 }

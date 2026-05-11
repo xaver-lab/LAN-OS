@@ -209,7 +209,7 @@ export function PoolBuilder({ state, reload }: Props) {
                 key={g.id}
                 game={g}
                 draggable
-                onDragStart={(e: React.DragEvent) => handleDragStart(e, g.id, "available")}
+                onDragStart={(e: React.DragEvent<HTMLDivElement>) => handleDragStart(e, g.id, "available")}
                 isDragging={draggedItem?.gameId === g.id}
               />
             ))}

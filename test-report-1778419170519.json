@@ -1,0 +1,905 @@
+{
+  "test_start": 1778419170520,
+  "test_end": 1778419532994,
+  "duration_ms": 362474,
+  "duration_hours": "0.10",
+  "iterations": 136,
+  "players_simulated": 40,
+  "peak_memory_mb": 6,
+  "avg_memory_mb": 5,
+  "memory_readings": [
+    {
+      "timestamp": 5015,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 10024,
+      "memory_mb": 4
+    },
+    {
+      "timestamp": 15033,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 20034,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 25049,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 30058,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 35066,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 40068,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 45076,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 50091,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 55105,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 60116,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 65117,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 70128,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 75129,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 80140,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 85143,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 90153,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 95158,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 100165,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 105177,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 110187,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 115193,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 120205,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 125215,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 130225,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 135236,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 140243,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 145245,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 150247,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 155250,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 160257,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 165266,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 170268,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 175281,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 180294,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 185302,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 190313,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 195323,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 200325,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 205327,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 210338,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 215342,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 220343,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 225347,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 230349,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 235352,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 240361,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 245364,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 250372,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 255382,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 260390,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 265401,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 270402,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 275414,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 280417,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 285428,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 290438,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 295445,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 300456,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 305465,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 310471,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 315483,
+      "memory_mb": 6
+    },
+    {
+      "timestamp": 320495,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 325502,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 330509,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 335512,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 340525,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 345527,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 350530,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 355535,
+      "memory_mb": 5
+    },
+    {
+      "timestamp": 360535,
+      "memory_mb": 5
+    }
+  ],
+  "rounds": [
+    {
+      "round": 37,
+      "activity": "MATCH",
+      "players": 11,
+      "timestamp": 1778419266512
+    },
+    {
+      "round": 38,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419269180
+    },
+    {
+      "round": 39,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419271845
+    },
+    {
+      "round": 40,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419274505
+    },
+    {
+      "round": 41,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419277175
+    },
+    {
+      "round": 42,
+      "activity": "VOTE",
+      "players": 12,
+      "timestamp": 1778419279838
+    },
+    {
+      "round": 43,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419282502
+    },
+    {
+      "round": 44,
+      "activity": "VOTE",
+      "players": 2,
+      "timestamp": 1778419285165
+    },
+    {
+      "round": 45,
+      "activity": "MATCH",
+      "players": 11,
+      "timestamp": 1778419287822
+    },
+    {
+      "round": 46,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419290487
+    },
+    {
+      "round": 47,
+      "activity": "MATCH",
+      "players": 8,
+      "timestamp": 1778419293154
+    },
+    {
+      "round": 48,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419295814
+    },
+    {
+      "round": 49,
+      "activity": "MATCH",
+      "players": 7,
+      "timestamp": 1778419298477
+    },
+    {
+      "round": 50,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419301149
+    },
+    {
+      "round": 51,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419303818
+    },
+    {
+      "round": 52,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419306480
+    },
+    {
+      "round": 53,
+      "activity": "MATCH",
+      "players": 5,
+      "timestamp": 1778419309138
+    },
+    {
+      "round": 54,
+      "activity": "VOTE",
+      "players": 2,
+      "timestamp": 1778419311798
+    },
+    {
+      "round": 55,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419314464
+    },
+    {
+      "round": 56,
+      "activity": "VOTE",
+      "players": 5,
+      "timestamp": 1778419317125
+    },
+    {
+      "round": 57,
+      "activity": "MATCH",
+      "players": 9,
+      "timestamp": 1778419319782
+    },
+    {
+      "round": 58,
+      "activity": "VOTE",
+      "players": 4,
+      "timestamp": 1778419322447
+    },
+    {
+      "round": 59,
+      "activity": "MATCH",
+      "players": 12,
+      "timestamp": 1778419325104
+    },
+    {
+      "round": 60,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419327762
+    },
+    {
+      "round": 61,
+      "activity": "MATCH",
+      "players": 12,
+      "timestamp": 1778419330428
+    },
+    {
+      "round": 62,
+      "activity": "VOTE",
+      "players": 4,
+      "timestamp": 1778419333102
+    },
+    {
+      "round": 63,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419335761
+    },
+    {
+      "round": 64,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419338420
+    },
+    {
+      "round": 65,
+      "activity": "MATCH",
+      "players": 6,
+      "timestamp": 1778419341089
+    },
+    {
+      "round": 66,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419343748
+    },
+    {
+      "round": 67,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419346411
+    },
+    {
+      "round": 68,
+      "activity": "VOTE",
+      "players": 7,
+      "timestamp": 1778419349069
+    },
+    {
+      "round": 69,
+      "activity": "MATCH",
+      "players": 12,
+      "timestamp": 1778419351740
+    },
+    {
+      "round": 70,
+      "activity": "VOTE",
+      "players": 12,
+      "timestamp": 1778419354410
+    },
+    {
+      "round": 71,
+      "activity": "MATCH",
+      "players": 9,
+      "timestamp": 1778419357076
+    },
+    {
+      "round": 72,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419359739
+    },
+    {
+      "round": 73,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419362399
+    },
+    {
+      "round": 74,
+      "activity": "VOTE",
+      "players": 5,
+      "timestamp": 1778419365072
+    },
+    {
+      "round": 75,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419367729
+    },
+    {
+      "round": 76,
+      "activity": "VOTE",
+      "players": 3,
+      "timestamp": 1778419370392
+    },
+    {
+      "round": 77,
+      "activity": "MATCH",
+      "players": 8,
+      "timestamp": 1778419373064
+    },
+    {
+      "round": 78,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419375732
+    },
+    {
+      "round": 79,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419378391
+    },
+    {
+      "round": 80,
+      "activity": "VOTE",
+      "players": 3,
+      "timestamp": 1778419381058
+    },
+    {
+      "round": 81,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419383725
+    },
+    {
+      "round": 82,
+      "activity": "VOTE",
+      "players": 7,
+      "timestamp": 1778419386386
+    },
+    {
+      "round": 83,
+      "activity": "MATCH",
+      "players": 8,
+      "timestamp": 1778419389059
+    },
+    {
+      "round": 84,
+      "activity": "VOTE",
+      "players": 12,
+      "timestamp": 1778419391716
+    },
+    {
+      "round": 85,
+      "activity": "MATCH",
+      "players": 9,
+      "timestamp": 1778419394385
+    },
+    {
+      "round": 86,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419397050
+    },
+    {
+      "round": 87,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419399710
+    },
+    {
+      "round": 88,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419402371
+    },
+    {
+      "round": 89,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419405035
+    },
+    {
+      "round": 90,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419407697
+    },
+    {
+      "round": 91,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419410362
+    },
+    {
+      "round": 92,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419413031
+    },
+    {
+      "round": 93,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419415699
+    },
+    {
+      "round": 94,
+      "activity": "VOTE",
+      "players": 3,
+      "timestamp": 1778419418360
+    },
+    {
+      "round": 95,
+      "activity": "MATCH",
+      "players": 6,
+      "timestamp": 1778419421019
+    },
+    {
+      "round": 96,
+      "activity": "VOTE",
+      "players": 9,
+      "timestamp": 1778419423681
+    },
+    {
+      "round": 97,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419426352
+    },
+    {
+      "round": 98,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419429019
+    },
+    {
+      "round": 99,
+      "activity": "MATCH",
+      "players": 8,
+      "timestamp": 1778419431687
+    },
+    {
+      "round": 100,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419434347
+    },
+    {
+      "round": 101,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419437006
+    },
+    {
+      "round": 102,
+      "activity": "VOTE",
+      "players": 3,
+      "timestamp": 1778419439677
+    },
+    {
+      "round": 103,
+      "activity": "MATCH",
+      "players": 5,
+      "timestamp": 1778419442338
+    },
+    {
+      "round": 104,
+      "activity": "VOTE",
+      "players": 5,
+      "timestamp": 1778419445001
+    },
+    {
+      "round": 105,
+      "activity": "MATCH",
+      "players": 8,
+      "timestamp": 1778419447658
+    },
+    {
+      "round": 106,
+      "activity": "VOTE",
+      "players": 12,
+      "timestamp": 1778419450329
+    },
+    {
+      "round": 107,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419452987
+    },
+    {
+      "round": 108,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419455654
+    },
+    {
+      "round": 109,
+      "activity": "MATCH",
+      "players": 12,
+      "timestamp": 1778419458320
+    },
+    {
+      "round": 110,
+      "activity": "VOTE",
+      "players": 7,
+      "timestamp": 1778419460989
+    },
+    {
+      "round": 111,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419463660
+    },
+    {
+      "round": 112,
+      "activity": "VOTE",
+      "players": 4,
+      "timestamp": 1778419466328
+    },
+    {
+      "round": 113,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419468994
+    },
+    {
+      "round": 114,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419471651
+    },
+    {
+      "round": 115,
+      "activity": "MATCH",
+      "players": 11,
+      "timestamp": 1778419474313
+    },
+    {
+      "round": 116,
+      "activity": "VOTE",
+      "players": 2,
+      "timestamp": 1778419476979
+    },
+    {
+      "round": 117,
+      "activity": "MATCH",
+      "players": 9,
+      "timestamp": 1778419479645
+    },
+    {
+      "round": 118,
+      "activity": "VOTE",
+      "players": 4,
+      "timestamp": 1778419482313
+    },
+    {
+      "round": 119,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419484982
+    },
+    {
+      "round": 120,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419487651
+    },
+    {
+      "round": 121,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419490313
+    },
+    {
+      "round": 122,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419492986
+    },
+    {
+      "round": 123,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419495651
+    },
+    {
+      "round": 124,
+      "activity": "VOTE",
+      "players": 3,
+      "timestamp": 1778419498317
+    },
+    {
+      "round": 125,
+      "activity": "MATCH",
+      "players": 10,
+      "timestamp": 1778419500982
+    },
+    {
+      "round": 126,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419503651
+    },
+    {
+      "round": 127,
+      "activity": "MATCH",
+      "players": 11,
+      "timestamp": 1778419506313
+    },
+    {
+      "round": 128,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419508981
+    },
+    {
+      "round": 129,
+      "activity": "MATCH",
+      "players": 2,
+      "timestamp": 1778419511653
+    },
+    {
+      "round": 130,
+      "activity": "VOTE",
+      "players": 6,
+      "timestamp": 1778419514318
+    },
+    {
+      "round": 131,
+      "activity": "MATCH",
+      "players": 11,
+      "timestamp": 1778419516989
+    },
+    {
+      "round": 132,
+      "activity": "VOTE",
+      "players": 8,
+      "timestamp": 1778419519659
+    },
+    {
+      "round": 133,
+      "activity": "MATCH",
+      "players": 4,
+      "timestamp": 1778419522321
+    },
+    {
+      "round": 134,
+      "activity": "VOTE",
+      "players": 10,
+      "timestamp": 1778419524998
+    },
+    {
+      "round": 135,
+      "activity": "MATCH",
+      "players": 3,
+      "timestamp": 1778419527655
+    },
+    {
+      "round": 136,
+      "activity": "VOTE",
+      "players": 11,
+      "timestamp": 1778419530327
+    }
+  ],
+  "health_check_failures": 2,
+  "final_version": 0,
+  "success": false
+}

@@ -354,7 +354,7 @@ function ModifierCheckbox({
   onToggle,
   color,
 }: {
-  modifier: typeof state.modifiers[0];
+  modifier: Modifier;
   selected: boolean;
   onToggle: () => void;
   color: string;

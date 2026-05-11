@@ -267,10 +267,6 @@ function GameCard({
         cursor: "pointer",
         transition: "all 0.2s ease",
         boxShadow: game.inActivePool ? "0 0 12px var(--neon)22" : "none",
-        _hover: {
-          borderColor: "var(--neon)",
-          boxShadow: "0 0 12px var(--neon)22",
-        },
       }}
       onClick={onOpenModal}
       onMouseEnter={(e) => {
@@ -413,8 +409,7 @@ function GameCard({
         {!game.aiAnalyzed && (
           <NeonButton
             variant="primary"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               onAnalyze();
             }}
             disabled={analyzing}
@@ -493,8 +488,8 @@ Chaos: ${game.chaosPotential}/100
           overflow: "auto",
           boxShadow: `0 0 30px ${tagColor}44`,
         }}
-        onClick={(e) => e.stopPropagation()}
       >
+        <div onClick={(e: React.MouseEvent) => e.stopPropagation()}>
         {/* Header */}
         <div
           style={{
@@ -657,6 +652,7 @@ Chaos: ${game.chaosPotential}/100
           >
             Close
           </NeonButton>
+        </div>
         </div>
       </Card>
     </div>
